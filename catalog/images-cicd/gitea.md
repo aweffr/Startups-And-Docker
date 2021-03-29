@@ -22,7 +22,7 @@ docker run -d \
 --name gitea \
 --restart unless-stopped \
 --network=backend \
--v /nfs/data/gitea:/data \
+-v ${NFS}/gitea:/data \
 -p 3000:3000 \
 -p 8022:2222 \
 gitea/gitea
@@ -35,7 +35,7 @@ docker service create --replicas 1 \
 --name gitea \
 --hostname git.mytrade.fun \
 --network staging \
---mount type=bind,src=/nfs/gitea,dst=/data \
+--mount type=bind,src=${NFS}/gitea,dst=/data \
 --mount type=bind,src=/etc/timezone,dst=/etc/timezone:ro \
 --mount type=bind,src=/etc/localtime,dst=/etc/localtime:ro \
 --label traefik.enable=true \

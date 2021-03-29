@@ -27,7 +27,7 @@ docker run -d \
 --net backend \
 -p 80:80 -p 443:443 \
 -e TZ=Asia/Shanghai \
--v ${NFS}/data/dokuwiki:/bitnami \
+-v ${NFS}/dokuwiki:/bitnami \
 bitnami/dokuwiki:latest
 ```
 {% endtab %}
@@ -39,7 +39,7 @@ docker service create --replicas 1 \
 --network staging \
 -p 80:80 -p 443:443 \
 -e TZ=Asia/Shanghai \
---mount type=bind,src=${NFS}/data/dokuwiki,dst=/bitnami \
+--mount type=bind,src=${NFS}/dokuwiki,dst=/bitnami \
 bitnami/dokuwiki:latest
 ```
 {% endtab %}

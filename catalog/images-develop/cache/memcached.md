@@ -8,8 +8,7 @@
 
 | 端口 | 用途 |
 | :--- | :--- |
-| 53 | DNS |
-| 8080 | 管理页面 |
+| 11211 | 通讯端口 |
 
 
 
@@ -17,7 +16,15 @@
 
 {% tabs %}
 {% tab title="Docker" %}
-
+```text
+docker run -d \
+--name memcached \
+--net backend \
+--restart unless-stopped \
+--net backend \
+-p 11211:11211 \
+memcached:alpine
+```
 {% endtab %}
 
 {% tab title="Swarm" %}

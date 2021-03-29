@@ -6,12 +6,7 @@
 
 ## EXPOSE
 
-| 端口 | 用途 |
-| :--- | :--- |
-| 53 | DNS |
-| 8080 | 管理页面 |
-
-
+无
 
 ## 命令
 
@@ -21,7 +16,19 @@
 {% endtab %}
 
 {% tab title="Swarm" %}
-
+```bash
+docker service create --replicas 1 \
+--name drone-runner \
+--network staging \
+-e TZ=Asia/Shanghai \
+-e DRONE_RPC_PROTO=http \
+-e DRONE_RPC_HOST=drone \
+-e DRONE_RPC_SECRET=MWckgvhjqg4E3eQ0ptg2X4iNC6oQiyU4LLvO4eXFFuHtrTkIy2vwcAc3erB5f9reM \
+-e DRONE_RUNNER_CAPACITY=2 \
+-e DRONE_RUNNER_NAME=drone-runner \
+--mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
+drone/drone-runner-docker
+```
 {% endtab %}
 {% endtabs %}
 

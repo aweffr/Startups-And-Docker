@@ -11,6 +11,7 @@
     * [NexCloud](catalog/images-base/nexcloud.md)
     * [Minio](catalog/images-base/minio.md)
     * [Etcd](catalog/images-base/etcd.md)
+    * [Wordpress](catalog/images-base/wordpress.md)
     * [Dokuwiki](catalog/images-base/dokuwiki.md)
     * [Bitwarden](catalog/images-base/bitwarden.md)
     * [Ocserv](catalog/images-base/ocserv.md)
