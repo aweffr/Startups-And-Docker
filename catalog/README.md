@@ -34,8 +34,8 @@
 | 名称 | 用途 | 内存占用 | 备注 |
 | :---: | :---: | :---: | :---: |
 | [Gitea](images-cicd/gitea.md) | 版本控制 | 187M | Gogs分叉版本，支持OAuth2 |
-| [Drone](images-cicd/drone/) | 自动编译发布 | 21M | 适合发布服务端程序 |
-| [Jekins](images-cicd/jekins.md) | 自动编译发布 | 1.051G | 适合发布客户端程序 |
+| [Drone](images-cicd/drone/) | 开源持续集成工具 | 21M | 适合发布服务端程序 |
+| [Jenkins](images-cicd/jenkins.md) | 开源持续集成工具 | 1.051G | 适合发布客户端程序 |
 
 ### 运维环境
 

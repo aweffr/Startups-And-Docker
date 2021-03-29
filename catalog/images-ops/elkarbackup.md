@@ -1,8 +1,8 @@
 ---
-description: 可视化容器管理工具
+description: 基于RSync/RSnapshot的免费开源备份解决方案
 ---
 
-# Portainer
+# Elkarbackup
 
 ## 简介
 
@@ -32,8 +32,4 @@ description: 可视化容器管理工具
 
 
 ## 参考
-
-官网: [https://www.elkarbackup.org/](https://www.elkarbackup.org/)
-
-DockerHub: [https://hub.docker.com/r/elkarbackup/elkarbackup/](https://hub.docker.com/r/elkarbackup/elkarbackup/)
 
