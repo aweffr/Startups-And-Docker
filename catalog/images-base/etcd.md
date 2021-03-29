@@ -1,3 +1,7 @@
+---
+description: 管理配置信息和服务发现
+---
+
 # Etcd
 
 ## 简介
@@ -16,11 +20,11 @@
 ## 命令
 
 {% tabs %}
-{% tab title="First Tab" %}
+{% tab title="Docker" %}
 
 {% endtab %}
 
-{% tab title="Second Tab" %}
+{% tab title="Swarm" %}
 
 {% endtab %}
 {% endtabs %}

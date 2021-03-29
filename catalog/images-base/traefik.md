@@ -24,7 +24,7 @@ description: 开源云原生网关
 {% tab title="Docker" %}
 
 
-```text
+```bash
 docker run -d \
 --name traefik \
 --restart unless-stopped \
@@ -41,7 +41,7 @@ traefik
 {% tab title="Swarm" %}
 
 
-```text
+```bash
 docker service create --replicas 1 \
 --name traefik \
 --network staging \

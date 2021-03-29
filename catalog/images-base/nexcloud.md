@@ -8,8 +8,7 @@
 
 | 端口 | 用途 |
 | :--- | :--- |
-| 53 | DNS |
-| 8080 | 管理页面 |
+| 80 | 管理页面 |
 
 
 
@@ -17,11 +16,26 @@
 
 {% tabs %}
 {% tab title="Docker" %}
-
+```bash
+docker run -d \
+--name nextcloud \
+--restart unless-stopped \
+-e TZ=Asia/Shanghai \
+-v ${NFS}/nextcloud:/var/www/html \
+-p 8080:80 \
+nextcloud
+```
 {% endtab %}
 
 {% tab title="Swarm" %}
-
+```bash
+docker service create --replicas 1 \
+--name nextcloud \
+--network staging \
+-e TZ=Asia/Shanghai \
+--mount type=bind,src=${NFS}/nextcloud,dst=/var/www/html \
+nextcloud
+```
 {% endtab %}
 {% endtabs %}
 

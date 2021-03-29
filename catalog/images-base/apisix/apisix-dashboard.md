@@ -16,7 +16,7 @@
 
 {% tabs %}
 {% tab title="Docker" %}
-```text
+```bash
 docker run -d \
 -v ${NFS}/apisix/dashboard.yaml:/usr/local/apisix-dashboard/conf/conf.yaml 
 -p 9000:9000 
@@ -25,7 +25,7 @@ apache/apisix-dashboard:2.3
 {% endtab %}
 
 {% tab title="Swarm" %}
-```text
+```bash
 docker service create --replicas 1 \
 --name apisix-dashboard \
 --network staging \

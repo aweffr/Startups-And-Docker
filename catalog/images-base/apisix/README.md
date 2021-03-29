@@ -20,7 +20,7 @@ description: 开源API网关
 
 {% tabs %}
 {% tab title="Docker" %}
-```text
+```bash
 docker run -d \
 --name apisix
 --restart unless-stopped \
@@ -32,7 +32,7 @@ apache/apisix:2.2-alpine
 {% endtab %}
 
 {% tab title="Swarm" %}
-```text
+```bash
 docker service create --replicas 1 \
 --name apisix \
 --network staging \

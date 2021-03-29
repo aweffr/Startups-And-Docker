@@ -21,7 +21,7 @@ description: DNS服务器端
 
 {% tabs %}
 {% tab title="Docker" %}
-```text
+```bash
 docker run -d \
 --name dnsmasq \
 --restart unless-stopped \
@@ -38,7 +38,7 @@ jpillora/dnsmasq
 {% endtab %}
 
 {% tab title="Swarm" %}
-```text
+```bash
 docker service create --replicas 1 \
 --name dnsmasq \
 --network staging \
