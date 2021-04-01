@@ -8,8 +8,7 @@
 
 | 端口 | 用途 |
 | :--- | :--- |
-| 53 | DNS |
-| 8080 | 管理页面 |
+| 80 | 管理页面 |
 
 
 
@@ -17,15 +16,32 @@
 
 {% tabs %}
 {% tab title="Docker" %}
-
+```bash
+docker run -d \
+-e PGADMIN_DEFAULT_EMAIL=user@domain.com \
+-e PGADMIN_DEFAULT_PASSWORD=SuperSecret \
+-p 8082:80 \
+dpage/pgadmin4
+```
 {% endtab %}
 
 {% tab title="Swarm" %}
-
+```bash
+docker service create --replicas 1 \
+--name pgadmin \
+--network staging \
+-e TZ=Asia/Shanghai \
+-e PGADMIN_DEFAULT_EMAIL=admin@domain.com \
+-e PGADMIN_DEFAULT_PASSWORD=SuperSecret \
+-p 8082:80 \
+dpage/pgadmin4
+```
 {% endtab %}
 {% endtabs %}
 
 
 
 ##  参考
+
+PgAdmin4帮助: [链接](https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html)
 

@@ -34,6 +34,7 @@
       * [Redis](catalog/images-develop/cache/redis.md)
   * [CI/CD](catalog/images-cicd/README.md)
     * [Gitea](catalog/images-cicd/gitea.md)
+    * [Phabricator](catalog/images-cicd/phabricator.md)
     * [Drone](catalog/images-cicd/drone/README.md)
       * [Drone-Agent](catalog/images-cicd/drone/drone-agent.md)
     * [Jenkins](catalog/images-cicd/jenkins.md)

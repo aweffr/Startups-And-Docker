@@ -8,8 +8,7 @@
 
 | 端口 | 用途 |
 | :--- | :--- |
-| 53 | DNS |
-| 8080 | 管理页面 |
+| 3306 | 通讯接口 |
 
 
 
@@ -17,7 +16,15 @@
 
 {% tabs %}
 {% tab title="Docker" %}
-
+```bash
+docker run -d \
+--name mariadb \
+--restart unless-stopped \
+--network=backend \
+-e ALLOW_EMPTY_PASSWORD=yes \
+-v ${NFS}/mariadb:/bitnami/mariadb \
+bitnami/mariadb:latest
+```
 {% endtab %}
 
 {% tab title="Swarm" %}
