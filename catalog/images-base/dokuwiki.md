@@ -17,7 +17,7 @@ description: 开源Wiki应用
 
 
 
-## 命令
+## 启动命令
 
 {% tabs %}
 {% tab title="Docker" %}

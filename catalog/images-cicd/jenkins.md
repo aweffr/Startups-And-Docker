@@ -17,7 +17,7 @@ description: 开源持续集成工具
 
 
 
-## 命令
+## 启动命令
 
 {% tabs %}
 {% tab title="Docker" %}

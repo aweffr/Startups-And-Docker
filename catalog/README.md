@@ -10,6 +10,7 @@
 | [NextCloud](images-base/nexcloud.md) | OAuth供应器,WebDAV,文件共享 | 126M | 可将文件存储至Minio |
 | [Minio](images-base/minio.md) | 对象存储 | 165M | 兼容S3协议 |
 | [Wordpress](images-base/wordpress.md) | 开源博客平台 |  | - |
+| [Synapse](images-base/synapse.md) | 聊天室服务器 | 87M |  |
 | [Dokuwiki](images-base/dokuwiki.md) | Wiki |  | - |
 | [Ocserv](images-base/ocserv.md) | OpenConnect VPN服务端 |  | 兼容Cisco Anyconnect |
 | [Bitwarden](images-base/bitwarden.md) | 开源的密码管理服务 |  | 供客户端程序使用 |
@@ -21,7 +22,7 @@
 | [MariaDB](images-develop/database/mariadb.md) | MySQL替代品 |  | - |
 | [MySQL](images-develop/database/mysql/) | 数据库 | 180M | - |
 | [Postgres](images-develop/database/postgres/) | 数据库 | 7M | - |
-| [MongoDB](images-develop/database/mongodb/) | 数据库 | 1000M | - |
+| [MongoDB](images-develop/database/mongodb/) | 数据库 | 166M | - |
 | [Redis](images-develop/cache/redis.md) | 键值对\(Key-Value\)存储数据库 | 4.5M | - |
 | [RabbitMQ](images-develop/cache/rabbitmq.md) | 开源消息队列 | 83M |  |
 | [Etcd](images-base/etcd.md) | Key/Value 存储系统 | 75M | 用于分享配置和服务发现 |

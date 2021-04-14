@@ -12,7 +12,7 @@
 
 
 
-## 命令
+## 启动命令
 
 {% tabs %}
 {% tab title="Docker" %}
@@ -42,4 +42,6 @@ nextcloud
 
 
 ## 参考
+
+Oauth说明: [https://docs.nextcloud.com/server/20/admin\_manual/configuration\_server/oauth2.html](https://docs.nextcloud.com/server/20/admin_manual/configuration_server/oauth2.html)
 

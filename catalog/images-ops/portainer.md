@@ -17,7 +17,7 @@ description: 可视化容器管理工具
 
 
 
-## 命令
+## 启动命令
 
 {% tabs %}
 {% tab title="Docker" %}

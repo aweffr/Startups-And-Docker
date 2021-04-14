@@ -17,7 +17,7 @@ description: 代码审核(Code Review)
 
 
 
-## 命令
+## 启动命令
 
 {% tabs %}
 {% tab title="Docker" %}

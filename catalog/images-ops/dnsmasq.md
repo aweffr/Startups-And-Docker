@@ -17,7 +17,7 @@ description: DNS服务器端
 
 
 
-## 命令
+## 启动命令
 
 {% tabs %}
 {% tab title="Docker" %}

@@ -17,7 +17,7 @@ description: 管理配置信息和服务发现
 
 
 
-## 命令
+## 启动命令
 
 {% tabs %}
 {% tab title="Docker" %}

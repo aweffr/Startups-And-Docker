@@ -18,7 +18,7 @@ description: 开源云原生网关
 
 
 
-## 命令
+## 启动命令
 
 {% tabs %}
 {% tab title="Docker" %}
@@ -46,7 +46,7 @@ docker service create --replicas 1 \
 --name traefik \
 --network staging \
 -p 8080:8080 \
--p 82:80 -p 444:443 \
+-p 80:80 -p 444:443 \
 --constraint=node.role==manager \
 --secret ali_access \
 --secret ali_secret \
@@ -60,7 +60,14 @@ traefik
 {% endtab %}
 {% endtabs %}
 
+## 匹配规则
 
+```text
+Path: /sub/             匹配请求的子目录
+PathStrip: /sub/        匹配请求的子目录，并把子目录去掉后的请求转发到后端
+PathPrefix: /sub/       匹配请求的子目录及包含该子目录的请求
+PathPrefixStrip: /sub/  匹配请求的子目录及包含该子目录的请求,并把子目录去掉后的请求转发到后端
+```
 
 ## 参考
 

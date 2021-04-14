@@ -16,7 +16,7 @@ description: 开源博客平台
 
 
 
-## 命令
+## 启动命令
 
 {% tabs %}
 {% tab title="Docker" %}

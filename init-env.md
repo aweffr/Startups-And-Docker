@@ -1,4 +1,4 @@
-# 起始环境
+# 初始环境
 
 
 
@@ -13,12 +13,16 @@ mkdir /nfs
 mkdir /nfs/docker
 
 #设置数据路径
-set NFS=/nfs/docker
+NFS=/nfs/docker
 
 #设置域名，请填写自己的域名
 #如果你有多个域名这一步可以略过
-set DOMAIN=.aimodu.com
+DOMAIN=mytrade.fun
 
+#修改系统参数
+vi /etc/profile
+
+echo 'NFS=/nfs/docker\\nDOMAIN=mytrade.fun'>>/etc/profile
 ```
 
 ## 创建Swarm

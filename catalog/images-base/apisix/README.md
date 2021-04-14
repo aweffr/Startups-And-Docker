@@ -16,7 +16,7 @@ description: 开源API网关
 
 
 
-## 命令
+## 启动命令
 
 {% tabs %}
 {% tab title="Docker" %}

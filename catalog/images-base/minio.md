@@ -16,7 +16,7 @@ description: 兼容S3的对象存储服务
 
 
 
-## 命令
+## 启动命令
 
 {% tabs %}
 {% tab title="Docker" %}

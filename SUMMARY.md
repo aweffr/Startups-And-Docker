@@ -1,7 +1,7 @@
 # Table of contents
 
 * [前言](README.md)
-* [起始环境](init-env.md)
+* [初始环境](init-env.md)
 * [应用目录](catalog/README.md)
   * [基础应用](catalog/images-base/README.md)
     * [Traefik](catalog/images-base/traefik.md)
@@ -13,6 +13,7 @@
     * [Etcd](catalog/images-base/etcd.md)
     * [Wordpress](catalog/images-base/wordpress.md)
     * [Dokuwiki](catalog/images-base/dokuwiki.md)
+    * [Synapse](catalog/images-base/synapse.md)
     * [Bitwarden](catalog/images-base/bitwarden.md)
     * [Ocserv](catalog/images-base/ocserv.md)
   * [开发应用](catalog/images-develop/README.md)

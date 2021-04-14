@@ -16,7 +16,7 @@ description: phpMyAdmin的替代品
 
 
 
-## 命令
+## 启动命令
 
 {% tabs %}
 {% tab title="Docker" %}
