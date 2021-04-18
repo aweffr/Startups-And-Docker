@@ -38,7 +38,7 @@ docker service create --replicas 1 \
 --network staging \
 -e TZ=Asia/Shanghai \
 -e POSTGRES_USER=admin \
--e POSTGRES_PASSWORD=r00t \
+-e POSTGRES_PASSWORD=Test123666 \
 -p 5432:5432 \
 --mount type=tmpfs,dst=/dev/shm,tmpfs-size=268435456 \
 --mount type=bind,src=${NFS}/postgres,dst=/var/lib/postgresql/data \
