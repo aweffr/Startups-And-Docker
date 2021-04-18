@@ -12,8 +12,7 @@ description: 可视化容器管理工具
 
 | 端口 | 用途 |
 | :--- | :--- |
-| 53 | DNS |
-| 8080 | 管理页面 |
+| 9000 | 管理页面 |
 
 
 
@@ -21,11 +20,27 @@ description: 可视化容器管理工具
 
 {% tabs %}
 {% tab title="Docker" %}
-
+```bash
+docker run -d \
+--name portainer \
+--restart unless-stopped \
+-e TZ=Asia/Shanghai \
+--privileged \
+-p 9000:9000 \
+-v /var/run/docker.sock:/var/run/docker.sock \
+portainer/portainer
+```
 {% endtab %}
 
 {% tab title="Swarm" %}
-
+```bash
+docker service create --replicas 1 \
+--name portainer \
+--network staging \
+-e TZ=Asia/Shanghai \
+--mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
+portainer/portainer:1.24.1-alpine
+```
 {% endtab %}
 {% endtabs %}
 
@@ -33,7 +48,5 @@ description: 可视化容器管理工具
 
 ## 参考
 
-官网: [https://www.elkarbackup.org/](https://www.elkarbackup.org/)
 
-DockerHub: [https://hub.docker.com/r/elkarbackup/elkarbackup/](https://hub.docker.com/r/elkarbackup/elkarbackup/)
 
