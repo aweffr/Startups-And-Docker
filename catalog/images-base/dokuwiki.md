@@ -6,7 +6,7 @@ description: 开源Wiki应用
 
 ## 简介
 
-
+更小功能更多，唯一缺点是使用文件存储系统而不是数据库，详细内容可查看[与MediaWiki的区别](https://www.wikimatrix.org/compare/dokuwiki+mediawiki)
 
 ## EXPOSE
 

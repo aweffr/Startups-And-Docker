@@ -45,6 +45,7 @@
     * [Zabbix](catalog/images-ops/zabbix/README.md)
       * [Zabbix-Client](catalog/images-ops/zabbix/zabbix-client.md)
     * [Grafana](catalog/images-ops/grafana/README.md)
+      * [Prometheus](catalog/images-ops/grafana/prometheus.md)
       * [Grafana/Loki](catalog/images-ops/grafana/grafana-loki.md)
     * [Portainer](catalog/images-ops/portainer.md)
     * [Matomo](catalog/images-ops/matomo.md)
