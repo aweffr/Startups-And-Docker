@@ -45,8 +45,15 @@ docker service create --replicas 1 \
 -e "MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MD8NG/bPxRfiBY7XAMPLEKEY" \
 --mount type=bind,src=${NFS}/minio/data,dst=/data \
 --mount type=bind,src=${NFS}/minio/conf,dst=/root/.minio \
--p 9000:9000 \
 minio/minio server /data
+
+
+#traefik参数
+--label traefik.enable=true \
+--label traefik.docker.network=staging \
+--label traefik.http.routers.minio.rule="Host(\`minio.${DOMAIN}\`)" \
+--label traefik.http.routers.minio.entrypoints=http \
+--label traefik.http.services.minio.loadbalancer.server.port=9000 \
 ```
 {% endtab %}
 {% endtabs %}

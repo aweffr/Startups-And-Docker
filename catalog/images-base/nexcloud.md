@@ -35,6 +35,13 @@ docker service create --replicas 1 \
 -e TZ=Asia/Shanghai \
 --mount type=bind,src=${NFS}/nextcloud,dst=/var/www/html \
 nextcloud
+
+#traefik参数
+--label traefik.enable=true \
+--label traefik.docker.network=staging \
+--label traefik.http.routers.cloud.rule="Host(\`cloud.${DOMAIN}\`)" \
+--label traefik.http.routers.cloud.entrypoints=http \
+--label traefik.http.services.cloud.loadbalancer.server.port=80 \
 ```
 {% endtab %}
 {% endtabs %}
@@ -43,5 +50,5 @@ nextcloud
 
 ## 参考
 
-Oauth说明: [https://docs.nextcloud.com/server/20/admin\_manual/configuration\_server/oauth2.html](https://docs.nextcloud.com/server/20/admin_manual/configuration_server/oauth2.html)
+OAuth2说明: [https://docs.nextcloud.com/server/20/admin\_manual/configuration\_server/oauth2.html](https://docs.nextcloud.com/server/20/admin_manual/configuration_server/oauth2.html)
 

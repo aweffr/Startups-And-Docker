@@ -49,7 +49,6 @@
 | Alerta | 报警信息整合 |  | - |
 | [Dnsmasq](images-ops/dnsmasq.md) | DNS解析 | 9.45M | - |
 | Zabbix | 企业级开源监控方案 | 37M | - |
-| [Grafana](images-ops/grafana/) | 数据可视化工具 | 13M | - |
-| [Grafana/Loki](images-ops/grafana/grafana-loki.md) | 日志聚合系统 |  | 需配合Grafana使用 |
-| [Prometheus](images-ops/grafana/prometheus.md) | 服务监控 |  | 也是时序数据库 |
+| [Grafana](images-ops/grafana/) | 数据可视化工具 |  | - |
+| [Grafana/Loki](images-ops/grafana/grafana-loki.md) | 日志聚合系统 | 需配合grafana使用 | - |
 
