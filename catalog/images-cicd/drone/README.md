@@ -33,13 +33,6 @@ docker run -d \
 -p 80:80 \
 -p 443:443 \
 drone/drone
-
-#traefik参数
---label traefik.enable=true \
---label traefik.docker.network=staging \
---label traefik.http.drone.wiki.rule="Host(\`drone.${DOMAIN}\`)" \
---label traefik.http.drone.wiki.entrypoints=http \
---label traefik.http.services.drone.loadbalancer.server.port=80 \
 ```
 {% endtab %}
 

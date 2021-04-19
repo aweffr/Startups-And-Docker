@@ -33,13 +33,6 @@ docker service create --replicas 1 \
 --mount type=bind,src=${NFS}/apisix/dashboard.yaml,dst=/usr/local/apisix-dashboard/conf/conf.yaml \
 -p 9000:9000 \
 apache/apisix-dashboard:2.3
-
-#traefik参数
---label traefik.enable=true \
---label traefik.docker.network=staging \
---label traefik.http.routers.api.rule="Host(\`api.${DOMAIN}\`)" \
---label traefik.http.routers.api.entrypoints=http \
---label traefik.http.services.api.loadbalancer.server.port=80 \
 ```
 {% endtab %}
 {% endtabs %}

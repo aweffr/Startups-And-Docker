@@ -40,11 +40,11 @@ docker service create --replicas 1 \
 --mount type=bind,src=/etc/localtime,dst=/etc/localtime:ro \
 --label traefik.enable=true \
 --label traefik.docker.network=staging \
---label traefik.http.routers.gitea.rule="Host(\`git.mytrade.fun\`)" \
+--label traefik.http.routers.gitea.rule="Host(\`gitea.mytrade.fun\`)" \
 --label traefik.http.routers.gitea.entrypoints=http,https \
 --label traefik.http.routers.gitea.tls.certresolver=certbot \
 --label traefik.http.services.gitea.loadbalancer.server.port=3000 \
---label traefik.tcp.routers.gitea.rule="Host(\`git.mytrade.fun\`)" \
+--label traefik.tcp.routers.gitea.rule="Host(\`gitea.mytrade.fun\`)" \
 --label traefik.tcp.routers.gitea.entrypoints=ssh \
 --label traefik.tcp.services.gitea.loadbalancer.server.port=8022 \
 --label traefik.tcp.routers.gitea.tls.certresolver=certbot \
