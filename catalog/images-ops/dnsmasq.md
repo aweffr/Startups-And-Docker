@@ -49,6 +49,13 @@ docker service create --replicas 1 \
 -e "HTTP_USER=admin" \
 -e "HTTP_PASS=test123" \
 jpillora/dnsmasq
+
+#traefik参数
+--label traefik.enable=true \
+--label traefik.docker.network=staging \
+--label traefik.http.routers.dnsmasq.rule="Host(\`dnsmasq.${DOMAIN}\`)" \
+--label traefik.http.routers.dnsmasq.entrypoints=http \
+--label traefik.http.services.dnsmasq.loadbalancer.server.port=8080 \
 ```
 {% endtab %}
 {% endtabs %}
