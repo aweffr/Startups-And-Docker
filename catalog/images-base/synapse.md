@@ -103,7 +103,11 @@ redis:
 运行服务器
 
 ```bash
-docker run -d --name synapse \
+docker run -d \
+--network=backend \
+--restart unless-stopped \
+-e TZ=Asia/Shanghai \
+--name synapse \
 --mount type=volume,src=synapse-data,dst=/data \
 -p 8008:8008 \
 matrixdotorg/synapse:latest

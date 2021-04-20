@@ -18,9 +18,13 @@
 {% tab title="Docker" %}
 ```bash
 docker run -d \
+--network=backend \
+--restart unless-stopped \
+-e TZ=Asia/Shanghai \
+--name apisix-dashboard
 -v ${NFS}/apisix/dashboard.yaml:/usr/local/apisix-dashboard/conf/conf.yaml 
 -p 9000:9000 
-apache/apisix-dashboard:2.3
+apache/apisix-dashboard:2.5
 ```
 {% endtab %}
 
@@ -31,8 +35,14 @@ docker service create --replicas 1 \
 --network staging \
 -e TZ=Asia/Shanghai \
 --mount type=bind,src=${NFS}/apisix/dashboard.yaml,dst=/usr/local/apisix-dashboard/conf/conf.yaml \
--p 9000:9000 \
-apache/apisix-dashboard:2.3
+apache/apisix-dashboard:2.5
+
+#traefik参数
+--label traefik.enable=true \
+--label traefik.docker.network=staging \
+--label traefik.http.routers.apisix.rule="Host(\`apisix.${DOMAIN}\`)" \
+--label traefik.http.routers.apisix.entrypoints=http \
+--label traefik.http.services.apisix.loadbalancer.server.port=9000 \
 ```
 {% endtab %}
 {% endtabs %}

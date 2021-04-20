@@ -38,6 +38,7 @@ docker service create --replicas 1 \
 -e TZ=Asia/Shanghai \
 -e MYSQL_ROOT_PASSWORD=Test123456 \
 --mount type=bind,src=${NFS}/mysql,dst=/var/lib/mysql \
+--label traefik.enable=true \
 mysql --lower_case_table_names=1
 ```
 {% endtab %}
