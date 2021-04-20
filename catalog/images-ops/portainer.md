@@ -28,7 +28,7 @@ docker run -d \
 --privileged \
 -p 9000:9000 \
 -v /var/run/docker.sock:/var/run/docker.sock \
-portainer/portainer
+portainer/portainer::1.24.1-alpine
 ```
 {% endtab %}
 
@@ -39,6 +39,11 @@ docker service create --replicas 1 \
 --network staging \
 -e TZ=Asia/Shanghai \
 --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
+--label traefik.enable=true \
+--label traefik.docker.network=staging \
+--label traefik.http.routers.docker.rule="Host(\`docker.${DOMAIN}\`)" \
+--label traefik.http.routers.docker.entrypoints=http \
+--label traefik.http.services.docker.loadbalancer.server.port=9000 \
 portainer/portainer:1.24.1-alpine
 ```
 {% endtab %}

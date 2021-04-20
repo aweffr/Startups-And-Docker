@@ -43,22 +43,22 @@ docker service create --replicas 1 \
 --mount type=bind,src=${NFS}/gitea,dst=/data \
 --mount type=bind,src=/etc/timezone,dst=/etc/timezone:ro \
 --mount type=bind,src=/etc/localtime,dst=/etc/localtime:ro \
--e DB_TYPE=mysql \
--e DB_HOST=db:3306 \
--e DB_NAME=gitea \
--e DB_USER=gitea \
--e DB_PASSWD=gitea \
+-e DOMAIN="gitea.${DOMAIN}" \
+-e SSH_DOMAIN="gitea.${DOMAIN}" \
+-e SSH_PORT=8022 \
+gitea/gitea
+
+#traefik参数
 --label traefik.enable=true \
 --label traefik.docker.network=staging \
---label traefik.http.routers.gitea.rule="Host(\`gitea.mytrade.fun\`)" \
+--label traefik.http.routers.gitea.rule="Host(\`gitea.${DOMAIN}\`)" \
 --label traefik.http.routers.gitea.entrypoints=http,https \
 --label traefik.http.routers.gitea.tls.certresolver=certbot \
 --label traefik.http.services.gitea.loadbalancer.server.port=3000 \
---label traefik.tcp.routers.gitea.rule="Host(\`gitea.mytrade.fun\`)" \
+--label traefik.tcp.routers.gitea.rule="Host(\`gitea.${DOMAIN}\`)" \
 --label traefik.tcp.routers.gitea.entrypoints=ssh \
 --label traefik.tcp.services.gitea.loadbalancer.server.port=22 \
 --label traefik.tcp.routers.gitea.tls.certresolver=certbot \
-gitea/gitea
 ```
 {% endtab %}
 {% endtabs %}

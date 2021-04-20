@@ -22,7 +22,7 @@ DOMAIN=mytrade.fun
 #修改系统参数
 vi /etc/profile
 
-echo 'NFS=/nfs\\nDOMAIN=mytrade.fun'>>/etc/profile
+echo 'NFS=/nfs/docker\\nDOMAIN=mytrade.fun'>>/etc/profile
 ```
 
 ## 创建Swarm
