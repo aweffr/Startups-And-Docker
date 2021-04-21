@@ -47,20 +47,22 @@ gitea/gitea
 --label traefik.enable=true \
 --label traefik.docker.network=staging \
 --label traefik.http.routers.gitea.rule="Host(\`gitea.${DOMAIN}\`)" \
---label traefik.http.routers.gitea.entrypoints=http,https \
---label traefik.http.routers.gitea.tls.certresolver=certbot \
+--label traefik.http.routers.gitea.entrypoints=http \
 --label traefik.http.services.gitea.loadbalancer.server.port=3000 \
---label traefik.tcp.routers.gitea.rule="Host(\`gitea.${DOMAIN}\`)" \
---label traefik.tcp.routers.gitea.entrypoints=ssh \
---label traefik.tcp.services.gitea.loadbalancer.server.port=22 \
---label traefik.tcp.routers.gitea.tls.certresolver=certbot \
 ```
 {% endtab %}
 {% endtabs %}
 
+> 如从内网其它主机导入版本库不允许从私有IP导入，可通过在${NFS}/gitea/gitea/conf/app.ini中添加以下参数并重启解决
 
+```text
+[migrations]
+ALLOW_LOCALNETWORKS = true
+```
 
 ##  参考
 
 官网:  [https://gitea.io/zh-cn/](https://gitea.io/zh-cn/)
+
+配置说明: [https://docs.gitea.io/zh-cn/config-cheat-sheet/](https://docs.gitea.io/zh-cn/config-cheat-sheet/)
 

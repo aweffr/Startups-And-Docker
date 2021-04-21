@@ -27,6 +27,13 @@ docker run -d \
 -e MYSQL_PASSWORD="t123456" \
 -e ZBX_SERVER_HOST=zabbix-server \
 zabbix/zabbix-web-nginx-mysql:alpine-trunk
+
+#traefik参数
+--label traefik.enable=true \
+--label traefik.docker.network=staging \
+--label traefik.http.routers.zabbix.rule="Host(\`zabbix.${DOMAIN}\`)" \
+--label traefik.http.routers.zabbix.entrypoints=http \
+--label traefik.http.services.zabbix.loadbalancer.server.port=8080 \
 ```
 {% endtab %}
 
