@@ -30,9 +30,6 @@ docker run -d \
 -v ${NFS}/data/zabbix/externalscripts:/usr/lib/zabbix/externalscripts \
 -v ${NFS}/data/zabbix/modules:/var/lib/zabbix/modules \
 zabbix/zabbix-server-mysql
-
-#traefik参数
---label traefik.enable=false \
 ```
 {% endtab %}
 
