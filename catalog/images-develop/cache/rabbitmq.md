@@ -17,6 +17,13 @@ description: 开源消息队列
 
 
 
+## 前置准备
+
+```bash
+#创建数据保存目录
+mkdir ${NFS}/rabbitmq
+```
+
 ## 启动命令
 
 {% tabs %}

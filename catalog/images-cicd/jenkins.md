@@ -17,6 +17,13 @@ description: 开源持续集成工具
 
 
 
+## 前置准备
+
+```bash
+#创建数据保存目录
+mkdir ${NFS}/jenkins
+```
+
 ## 启动命令
 
 {% tabs %}
