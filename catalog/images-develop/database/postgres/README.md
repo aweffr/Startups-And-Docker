@@ -12,16 +12,6 @@
 
 
 
-## 前置准备
-
-```bash
-#创建数据保存目录
-mkdir ${NFS}/postgrea
-
-#将密码保存进Docker Secret
-echo 'Test123666' | docker secret create POSTGRES_PWD -
-```
-
 ## 启动命令
 
 {% tabs %}
@@ -33,9 +23,8 @@ docker run -d \
 --net backend \
 --shm-size=256MB \
 -e TZ=Asia/Shanghai \
---secret POSTGRES_PWD \
 -e POSTGRES_USER=admin \
--e POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PWD \
+-e POSTGRES_PASSWORD=Test123666 \
 -p 5432:5432 \ 
 -v ${NFS}/postgres:/var/lib/postgresql/data \
 postgres:alpine
@@ -48,12 +37,11 @@ docker service create --replicas 1 \
 --name postgres \
 --network staging \
 -e TZ=Asia/Shanghai \
---secret POSTGRES_PWD \
 -e POSTGRES_USER=admin \
--e POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PWD \
+-e POSTGRES_PASSWORD=Test123666 \
+-p 5432:5432 \
 --mount type=tmpfs,dst=/dev/shm,tmpfs-size=268435456 \
 --mount type=bind,src=${NFS}/postgres,dst=/var/lib/postgresql/data \
---label traefik.enable=false \
 postgres:alpine
 ```
 {% endtab %}

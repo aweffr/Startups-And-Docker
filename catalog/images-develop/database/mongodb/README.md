@@ -56,5 +56,16 @@ mongo
 
 
 
+开启用户验证\(MongoDB默认任何人都可修改数据库\)
+
+```bash
+docker exec -it 容器ID /bin/bash
+db.auth('mongoadmin','r00t')
+
+添加用户(可选)
+db.createUser({user:"用户名",pwd:"密码",roles:[{role: 'root', db: 'admin'}]})
+
+```
+
 ##  参考
 

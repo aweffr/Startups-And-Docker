@@ -14,7 +14,7 @@
 
 ## 前置准备
 
-[部署MongoDB](../database/mongodb/)
+[部署MongoDB](../database/mongodb/)并开启用户验证
 
 ## 启动命令
 
@@ -37,7 +37,7 @@
     {\"name\":\"pl-test-dashboard\",\"options\":{}}, \
     {\"name\":\"response-to-ts\",\"options\":{}}, \
     {\"name\":\"proxy-jkdh\",\"options\":{}}]" \
-    jayfong/yapi
+    xiao0yy/yapi-docker
 
 
     #traefik参数
@@ -49,9 +49,7 @@
 {% endtab %}
 {% endtabs %}
 
-
-
 ##  参考
 
-Docker说明 [https://github.com/fjc0k/docker-YApi](https://github.com/fjc0k/docker-YApi)
+Docker说明: [https://github.com/xiao0yy/yapi-docker](https://github.com/xiao0yy/yapi-docker)
 

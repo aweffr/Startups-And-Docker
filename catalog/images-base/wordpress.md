@@ -16,13 +16,6 @@ description: 开源博客平台
 
 
 
-## 前置准备
-
-```bash
-#创建数据保存目录
-mkdir ${NFS}/wordpress
-```
-
 ## 启动命令
 
 {% tabs %}
