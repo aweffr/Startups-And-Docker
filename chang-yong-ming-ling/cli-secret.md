@@ -9,14 +9,16 @@
 ## 用法
 
 ```text
-#密码
-printf "zabbix" | docker secret create MYSQL_PASSWORD -
+#设置密码
+printf "Test123456" | docker secret create MYSQL_PASSWORD -
 ##或
-echo 'zabbix' | docker secret create MYSQL_PASSWORD -
-##用法
--e MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PASSWORD
-##或
---secret my-pass
+echo 'Test123456' | docker secret create MYSQL_PASSWORD -
+
+##使用时在docker运行命令时添加以下参数
+--secret MYSQL_PASSWORD \
+-e MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PASSWORD \
+
+
 
 #查看密码列表
 docker secret ls
