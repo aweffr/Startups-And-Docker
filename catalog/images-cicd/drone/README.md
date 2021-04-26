@@ -13,13 +13,6 @@
 
 
 
-## 前置准备
-
-```bash
-#创建数据保存目录
-mkdir ${NFS}/drone
-```
-
 ## 启动命令
 
 {% tabs %}
@@ -56,20 +49,13 @@ docker service create --replicas 1 \
 -e DRONE_LOGS_DEBUG=true \
 -e DRONE_GIT_ALWAYS_AUTH=true \
 -e DRONE_GIT_USERNAME=drone \
--e DRONE_GIT_PASSWORD=Drone!23 \
+-e DRONE_GIT_PASSWORD=drone123! \
 -e DRONE_GOGS_SERVER=http://gogs:3000 \
 -e DRONE_WEBHOOK_ENDPOINT=http://drone/hook \
 -e DRONE_RPC_SECRET=MWckgvhjqg4E3eQ0ptg2X4iNC6oQiyU4LLvO4eXFFuHtrTkIy2vwcAc3erB5f9reM \
 --mount type=bind,src=${NFS}/drone,dst=/data \
 --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
 drone/drone
-
-#traefik参数
---label traefik.enable=true \
---label traefik.docker.network=staging \
---label traefik.http.routers.drone.rule="Host(\`drone.${DOMAIN}\`)" \
---label traefik.http.routers.drone.entrypoints=http \
---label traefik.http.services.drone.loadbalancer.server.port=80 \
 ```
 {% endtab %}
 {% endtabs %}

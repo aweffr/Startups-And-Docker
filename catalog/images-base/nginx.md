@@ -17,15 +17,6 @@ description: Web Server
 
 
 
-## 前置准备
-
-```bash
-#创建数据保存目录
-mkdir ${NFS}/nginx
-mkdir ${NFS}/nginx/data
-mkdir ${NFS}/nginx/conf
-```
-
 ## 启动命令
 
 {% tabs %}

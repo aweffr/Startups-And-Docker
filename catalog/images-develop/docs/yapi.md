@@ -12,6 +12,10 @@
 
 
 
+## 前置准备
+
+[部署MongoDB](../database/mongodb/)
+
 ## 启动命令
 
 {% tabs %}

@@ -15,6 +15,9 @@
 ```bash
 #创建数据保存目录
 mkdir ${NFS}/mongo
+
+#将密码保存进Docker Secret
+echo 'r00t' | docker secret create MONGO_PWD -
 ```
 
 ## 启动命令
@@ -28,7 +31,7 @@ docker run -d \
 --net backend \
 -v ${NFS}/mongo:/data/db \
 -e MONGO_INITDB_ROOT_USERNAME="mongoadmin" \
--e MONGO_INITDB_ROOT_PASSWORD="r00t" \
+-e MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/MONGO_PWD \
 -p 27017:27017 \
 mongo
 ```
@@ -37,13 +40,13 @@ mongo
 {% tab title="Swarm" %}
 ```bash
 docker service create --replicas 1 \
---name mongo \
 --network staging \
 -e TZ=Asia/Shanghai \
--v ${NFS}/mongo:/data/db \
+--name mongo \
+--mount type=bind,src=${NFS}/mongo,dst=/data/db \
 -e MONGO_INITDB_ROOT_USERNAME="mongoadmin" \
--e MONGO_INITDB_ROOT_PASSWORD="r00t" \
---label traefik.enable=true \
+-e MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/MONGO_PWD \
+--label traefik.enable=false \
 mongo
 ```
 {% endtab %}

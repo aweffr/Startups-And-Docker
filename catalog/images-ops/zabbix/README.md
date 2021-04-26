@@ -25,11 +25,14 @@ docker run -d \
 -p 162:162 -p 10051:10051 \
 -e DB_SERVER_HOST="mysql" \
 -e MYSQL_USER="root" \
--e MYSQL_PASSWORD="Test123456" \
+-e MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PWD \
 -v ${NFS}/data/zabbix/alertscripts:/usr/lib/zabbix/alertscripts \
 -v ${NFS}/data/zabbix/externalscripts:/usr/lib/zabbix/externalscripts \
 -v ${NFS}/data/zabbix/modules:/var/lib/zabbix/modules \
 zabbix/zabbix-server-mysql
+
+#traefik参数
+--label traefik.enable=false \
 ```
 {% endtab %}
 
@@ -41,7 +44,7 @@ docker service create --replicas 1 \
 -e TZ=Asia/Shanghai \
 -e DB_SERVER_HOST="mysql" \
 -e MYSQL_USER="root" \
--e MYSQL_PASSWORD="Test123456" \
+-e MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PWD \
 -e ZBX_UNREACHABLEDELAY=30 \
 -p 162:162 -p 10051:10051 \
 --mount type=bind,src=${NFS}/zabbix/data/alertscripts,dst=/usr/lib/zabbix/alertscripts \
