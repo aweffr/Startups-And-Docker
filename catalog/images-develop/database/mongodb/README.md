@@ -34,7 +34,7 @@ docker run -d \
 -e MONGO_INITDB_ROOT_USERNAME="mongoadmin" \
 -e MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/MONGO_PWD \
 -p 27017:27017 \
-mongo
+mongo --auth
 ```
 {% endtab %}
 
@@ -46,26 +46,76 @@ docker service create --replicas 1 \
 --name mongo \
 --mount type=bind,src=${NFS}/mongo,dst=/data/db \
 --secret MONGO_PWD \
--e MONGO_INITDB_ROOT_USERNAME="mongoadmin" \
+-e MONGO_INITDB_ROOT_USERNAME="admin" \
 -e MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/MONGO_PWD \
 --label traefik.enable=false \
-mongo
+mongo --auth
 ```
 {% endtab %}
 {% endtabs %}
 
-
-
-开启用户验证\(MongoDB默认任何人都可修改数据库\)
+* 开启用户验证\(MongoDB默认任何人都可修改数据库\)
 
 ```bash
+#进入容器
 docker exec -it 容器ID /bin/bash
-db.auth('mongoadmin','r00t')
+# 进入mongo数据库
+mongo
+#使用admin数据库
+use admin
+#设置用户
+db.auth('admin','r00t') //返回1 就是认证成功
 
-添加用户(可选)
+添加管理帐号(可选)
 db.createUser({user:"用户名",pwd:"密码",roles:[{role: 'root', db: 'admin'}]})
 
 ```
 
+* 添加新用户
+
+```bash
+#进入相应的MongoDB容器：
+docker exec -it 容器ID /bin/bash
+# 进入mongo数据库
+mongo
+# 首先切换到admin数据库下
+use admin
+# 使用管理员帐号
+db.auth("mongoadmin","r00t")
+# 切换到yapi数据库下
+use yapi
+# 创建一个用户yapi, 密码是Hello123
+# user: 用户名 
+# pwd: 密码明文 
+# role: 用户角色 db: 该用户将创建到哪个数据库中
+db.createUser({
+    user: 'yapi',
+    pwd: 'Hello123',
+    roles: [{role: 'readWrite', db: 'yapi'}]
+});
+# 测试下是否正确
+db.auth("yapi", "Hello123");
+1 # 返回1表示正确
+# 退出MongoDB
+exit
+# 退出docker实例
+exit
+```
+
+* Role角色参数参考：
+
+Read：允许用户读取指定数据库   
+readWrite：允许用户读写指定数据库   
+dbAdmin：允许用户在指定数据库中执行管理函数，如索引创建、删除，查看统计或访问system.profile userAdmin：允许用户向system.users集合写入，可以找指定数据库里创建、删除和管理用户 clusterAdmin：只在admin数据库中可用，赋予用户所有分片和复制集相关函数的管理权限 readAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读权限   
+readWriteAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读写权限 userAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的userAdmin权限 dbAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的dbAdmin权限   
+root：只在admin数据库中可用。超级账号，超级权限 
+
+**注：**
+
+* admin的作用是管理用户，MongoDB下的每个数据库，用户都被它管理，除此外它基本没什么更多权限做其他事情
+* MongoDB没有通常意义的超级用户的概念，yapi库的授权用户只能被admin创建，而admin只能登陆admin数据库
+
 ##  参考
+
+教程: [https://www.runoob.com/mongodb/mongodb-tutorial.html](https://www.runoob.com/mongodb/mongodb-tutorial.html)
 
