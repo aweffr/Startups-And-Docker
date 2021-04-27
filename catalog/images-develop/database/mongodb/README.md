@@ -54,23 +54,6 @@ mongo --auth
 {% endtab %}
 {% endtabs %}
 
-* 开启用户验证\(MongoDB默认任何人都可修改数据库\)
-
-```bash
-#进入容器
-docker exec -it 容器ID /bin/bash
-# 进入mongo数据库
-mongo
-#使用admin数据库
-use admin
-#设置用户
-db.auth('admin','r00t') //返回1 就是认证成功
-
-添加管理帐号(可选)
-db.createUser({user:"用户名",pwd:"密码",roles:[{role: 'root', db: 'admin'}]})
-
-```
-
 * 添加新用户
 
 ```bash
@@ -81,7 +64,7 @@ mongo
 # 首先切换到admin数据库下
 use admin
 # 使用管理员帐号
-db.auth("mongoadmin","r00t")
+db.auth("admin","r00t")
 # 切换到yapi数据库下
 use yapi
 # 创建一个用户yapi, 密码是Hello123
