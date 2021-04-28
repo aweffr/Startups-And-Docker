@@ -4,7 +4,7 @@
 
 默认超级管理员帐号  
   admin@admin.com，密码 ymfe.org  
-  me@jinfeijie.cn，密码 ymfe.org
+
 
 ## EXPOSE
 

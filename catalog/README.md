@@ -22,7 +22,7 @@
 | [MariaDB](images-develop/database/mariadb.md) | MySQL替代品 |  | - |
 | [MySQL](images-develop/database/mysql/) | 数据库 | 180M | - |
 | [Postgres](images-develop/database/postgres/) | 数据库 | 7M | - |
-| [MongoDB](images-develop/database/mongodb/) | 数据库 | 65M | - |
+| [MongoDB](images-develop/database/mongodb/) | 数据库 | 166M | - |
 | [Redis](images-develop/cache/redis.md) | 键值对\(Key-Value\)存储数据库 | 4.5M | - |
 | [RabbitMQ](images-develop/cache/rabbitmq.md) | 开源消息队列 | 83M |  |
 | [Etcd](images-base/etcd.md) | Key/Value 存储系统 | 75M | 用于分享配置和服务发现 |
@@ -34,7 +34,7 @@
 
 | 名称 | 用途 | 内存占用 | 备注 |
 | :---: | :---: | :---: | :---: |
-| [Gitea](images-cicd/gitea.md) | 版本控制 | 115M | Gogs分叉版本，支持OAuth2和S3 |
+| [Gitea](images-cicd/gitea.md) | 版本控制 | 187M | Gogs分叉版本，支持OAuth2 |
 | [Phabricator](images-cicd/phabricator.md) | 代码审核 |  | 界面比Gerrit更人性化 |
 | [Drone](images-cicd/drone/) | 开源持续集成工具 | 21M | 适合发布服务端程序 |
 | [Jenkins](images-cicd/jenkins.md) | 开源持续集成工具 | 1.051G | 适合发布客户端程序 |
@@ -49,7 +49,6 @@
 | Alerta | 报警信息整合 |  | - |
 | [Dnsmasq](images-ops/dnsmasq.md) | DNS解析 | 9.45M | - |
 | Zabbix | 企业级开源监控方案 | 37M | - |
-| [Grafana](images-ops/grafana/) | 数据可视化工具 | 13M | - |
-| [Grafana/Loki](images-ops/grafana/grafana-loki.md) | 日志聚合系统 |  | 需配合Grafana使用 |
-| [Prometheus](images-ops/grafana/prometheus.md) | 服务监控 |  | 也是时序数据库 |
+| [Grafana](images-ops/grafana/) | 数据可视化工具 |  | - |
+| [Grafana/Loki](images-ops/grafana/grafana-loki.md) | 日志聚合系统 | 需配合grafana使用 | - |
 
