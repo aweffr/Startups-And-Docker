@@ -1,7 +1,3 @@
----
-description: 开源的密码管理服务
----
-
 # Bitwarden
 
 ## 简介

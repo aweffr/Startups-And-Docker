@@ -90,6 +90,12 @@ docker service create --replicas 1 \
 -e REDIS_PASSWORD="123456" \
 --mount type=bind,src=${NFS}/jumpserver,dst=/opt/jumpserver/data/media \
 jumpserver/jms_all
+
+--label traefik.enable=true \
+--label traefik.docker.network=staging \
+--label traefik.http.routers.jumpserver.rule="Host(\`jumpserver.${DOMAIN}\`)" \
+--label traefik.http.routers.jumpserver.entrypoints=http \
+--label traefik.http.services.jumpserver.loadbalancer.server.port=80 \
 ```
 {% endtab %}
 {% endtabs %}

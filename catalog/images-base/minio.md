@@ -16,14 +16,6 @@ description: 兼容S3的对象存储服务
 
 
 
-## 前置准备
-
-```bash
-#创建数据保存目录
-mkdir -p ${NFS}/minio/data
-mkdir -p ${NFS}/minio/conf
-```
-
 ## 启动命令
 
 {% tabs %}

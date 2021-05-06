@@ -1,7 +1,3 @@
----
-description: 聊天室服务器
----
-
 # Synapse
 
 ## 简介
@@ -20,6 +16,29 @@ Synapse是riot/matrix的官方服务器端
 * [vectorim/element-web](https://hub.docker.com/r/vectorim/element-web/) - the [Element](https://element.io/) web client \(optional\)
 * [ma1uta/ma1sd](https://hub.docker.com/r/ma1uta/ma1sd/) - the [ma1sd](https://github.com/ma1uta/ma1sd) Matrix Identity server \(optional\)
 
+### 设置
+
+* 设置Admin
+
+```text
+/usr/local/bin/matrix-change-user-admin-status <username> <0/1>设置
+```
+
+* 注册新用户
+
+```text
+register_new_matrix_user -c homeserver.yaml http://localhost:8008
+```
+
+* 重设密码
+
+```text
+$ ~/synapse/env/bin/hash_password
+Password:
+Confirm password:
+$2a$12$xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
 ## EXPOSE
 
 | 端口 | 用途 |
@@ -29,7 +48,7 @@ Synapse是riot/matrix的官方服务器端
 
 
 
-## 前置准备
+## 基础配置
 
 ```bash
 #创建存储目录
@@ -84,11 +103,7 @@ redis:
 运行服务器
 
 ```bash
-docker run -d \
---network=backend \
---restart unless-stopped \
--e TZ=Asia/Shanghai \
---name synapse \
+docker run -d --name synapse \
 --mount type=volume,src=synapse-data,dst=/data \
 -p 8008:8008 \
 matrixdotorg/synapse:latest
@@ -113,29 +128,6 @@ matrixdotorg/synapse:latest
 {% endtabs %}
 
 
-
-## 设置
-
-* 设置Admin
-
-```text
-/usr/local/bin/matrix-change-user-admin-status <username> <0/1>设置
-```
-
-* 注册新用户
-
-```text
-register_new_matrix_user -c homeserver.yaml http://localhost:8008
-```
-
-* 重设密码
-
-```text
-$ ~/synapse/env/bin/hash_password
-Password:
-Confirm password:
-$2a$12$xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-```
 
 ## 参考
 
