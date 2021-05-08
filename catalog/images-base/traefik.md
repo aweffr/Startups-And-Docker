@@ -18,6 +18,13 @@ description: 开源云原生网关
 
 
 
+## 前置准备
+
+```bash
+#创建数据保存目录
+mkdir ${NFS}/traefik
+```
+
 ## 启动命令
 
 {% tabs %}
@@ -26,9 +33,10 @@ description: 开源云原生网关
 
 ```bash
 docker run -d \
---name traefik \
+--network=backend \
 --restart unless-stopped \
 -e TZ=Asia/Shanghai \
+--name traefik \
 --privileged \
 -p 8080:8080 -p 82:80 -p 444:443 \
 -v ${NFS}/traefik/traefik.toml:/etc/traefik/traefik.toml \
@@ -55,6 +63,7 @@ docker service create --replicas 1 \
 -e TZ=Asia/Shanghai \
 --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
 --mount type=bind,source=${NFS}/traefik,target=/etc/traefik \
+--mount type=bind,source=${NFS}/traefik/config,target=/etc/traefik/config,readonly \
 traefik
 ```
 {% endtab %}
@@ -64,9 +73,7 @@ traefik
 
 ```text
 Path: /sub/             匹配请求的子目录
-PathStrip: /sub/        匹配请求的子目录，并把子目录去掉后的请求转发到后端
-PathPrefix: /sub/       匹配请求的子目录及包含该子目录的请求
-PathPrefixStrip: /sub/  匹配请求的子目录及包含该子目录的请求,并把子目录去掉后的请求转发到后端
+PathPrefix: /sub/*      匹配请求的子目录及包含该子目录的请求
 ```
 
 ## 参考
