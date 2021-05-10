@@ -79,7 +79,6 @@ docker service create --replicas 1 \
 --network staging \
 -e TZ=Asia/Shanghai \
 --name jumpserver \
--h jumpserver \
 -e SECRET_KEY=$SECRET_KEY \
 -e BOOTSTRAP_TOKEN=$BOOTSTRAP_TOKEN \
 -e DB_HOST=mysql \

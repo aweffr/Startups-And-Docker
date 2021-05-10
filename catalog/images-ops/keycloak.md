@@ -38,7 +38,6 @@ quay.io/keycloak/keycloak:13.0.0
     --network staging \
     -e TZ=Asia/Shanghai \
     --name keycloak \
-    -h keycloak \
     -e KEYCLOAK_USER=admin \
     -e KEYCLOAK_PASSWORD=admin \
     quay.io/keycloak/keycloak:13.0.0
