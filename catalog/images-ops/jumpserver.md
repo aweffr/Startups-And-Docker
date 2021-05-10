@@ -91,6 +91,7 @@ docker service create --replicas 1 \
 --mount type=bind,src=${NFS}/jumpserver,dst=/opt/jumpserver/data/media \
 jumpserver/jms_all
 
+#traefik参数
 --label traefik.enable=true \
 --label traefik.docker.network=staging \
 --label traefik.http.routers.jumpserver.rule="Host(\`jumpserver.${DOMAIN}\`)" \

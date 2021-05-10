@@ -49,6 +49,7 @@ description: 数据库脚本管理
 | 名称 | 用途 | 内存占用 | 备注 |
 | :---: | :---: | :---: | :---: |
 | [Portainer](images-ops/portainer.md) | 网页版Docker管理 | 16M | - |
+| [Keycloak](images-ops/keycloak.md) | 身份和访问管理解决方案 |  |  |
 | [Matomo](images-ops/matomo.md) |  |  | - |
 | Elkarbackup | 数据备份 |  | - |
 | Alerta | 报警信息整合 |  | - |
