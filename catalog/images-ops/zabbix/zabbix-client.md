@@ -26,7 +26,7 @@ docker run -d \
 -e MYSQL_USER="root" \
 -e MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PWD \
 -e ZBX_SERVER_HOST=zabbix-server \
-zabbix/zabbix-web-nginx-mysql
+zabbix/zabbix-web-nginx-mysql:alpine-trunk
 ```
 {% endtab %}
 
@@ -41,7 +41,7 @@ docker service create --replicas 1 \
 --secret MYSQL_PWD \
 -e MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PWD \
 -e ZBX_SERVER_HOST=zabbix-server \
-zabbix/zabbix-web-nginx-mysql
+zabbix/zabbix-web-nginx-mysql:ubuntu-latest
 
 #traefik参数
 --label traefik.enable=true \
