@@ -18,6 +18,88 @@ description: 开源云原生网关
 
 
 
+## 前置准备
+
+```bash
+#创建数据保存目录
+mkdir ${NFS}/traefik
+```
+
+```yaml
+# traefik.toml
+
+################################################################
+# 全局配置文件
+################################################################
+[global]
+  checkNewVersion = false
+  sendAnonymousUsage = false
+
+[log]
+  level = "WARN"
+  format = "common"
+
+[serversTransport]
+	insecureSkipVerify = true
+
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+    [entryPoints.http.forwardedHeaders]
+	insecure = true
+  [entryPoints.https]
+    address = ":443"
+    [entryPoints.https.forwardedHeaders]
+	insecure = true
+
+  [entryPoints.ssh]
+    address = ":8022"
+
+[api]
+	dashboard = true
+	insecure = true
+
+[ping]
+
+[accessLog]
+
+################################################################
+# Docker 后端配置
+################################################################
+[providers]
+    [providers.docker]
+	  endpoint = "unix:///var/run/docker.sock"
+	  #defaultRule = "Host(`{{ normalize .Name }}.docker.localhost`)"
+	  watch = true
+	  #exposedByDefault = false
+	  useBindPortIP = false
+	  swarmMode = true
+	  network = "staging"
+    [providers.file]
+        watch = true
+        directory = "/etc/traefik/config"
+        debugLogGeneratedTemplate = true
+
+################################################################
+# ACME (Let's Encrypt) 配置
+################################################################
+[certificatesResolvers.dnsResolver.acme]
+	email = "rakutens@hotmail.com"
+	storage = "/etc/traefik/acme.json"
+# CA server to use.
+# Uncomment the line to use Let's Encrypt's staging server,
+# leave commented to go to prod.
+#
+# Optional
+# Default: "https://acme-v02.api.letsencrypt.org/directory"
+#
+#	caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
+	[certificatesResolvers.dnsResolver.acme.dnsChallenge]
+		provider = "alidns"
+		resolvers = ["223.5.5.5:53", "114.114.114.114:53"]
+
+```
+
 ## 启动命令
 
 {% tabs %}
@@ -26,9 +108,10 @@ description: 开源云原生网关
 
 ```bash
 docker run -d \
---name traefik \
+--network=backend \
 --restart unless-stopped \
 -e TZ=Asia/Shanghai \
+--name traefik \
 --privileged \
 -p 8080:8080 -p 82:80 -p 444:443 \
 -v ${NFS}/traefik/traefik.toml:/etc/traefik/traefik.toml \
@@ -55,6 +138,7 @@ docker service create --replicas 1 \
 -e TZ=Asia/Shanghai \
 --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
 --mount type=bind,source=${NFS}/traefik,target=/etc/traefik \
+--mount type=bind,source=${NFS}/traefik/config,target=/etc/traefik/config,readonly \
 traefik
 ```
 {% endtab %}
@@ -64,9 +148,7 @@ traefik
 
 ```text
 Path: /sub/             匹配请求的子目录
-PathStrip: /sub/        匹配请求的子目录，并把子目录去掉后的请求转发到后端
-PathPrefix: /sub/       匹配请求的子目录及包含该子目录的请求
-PathPrefixStrip: /sub/  匹配请求的子目录及包含该子目录的请求,并把子目录去掉后的请求转发到后端
+PathPrefix: /sub/*      匹配请求的子目录及包含该子目录的请求
 ```
 
 ## 参考

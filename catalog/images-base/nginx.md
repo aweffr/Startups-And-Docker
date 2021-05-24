@@ -17,6 +17,21 @@ description: Web Server
 
 
 
+## 前置准备
+
+```bash
+#创建网站保存目录
+mkdir -p ${NFS}/nginx/data
+#创建配置文件目录
+mkdir -p ${NFS}/nginx/conf/conf.d
+
+#复制配置文件
+docker run -d --name tmp-nginx nginx  
+docker cp tmp-nginx:/etc/nginx/nginx.conf ${NFS}/nginx/conf/
+docker cp tmp-nginx:/etc/nginx/conf/conf.d ${NFS}/nginx/conf/conf.d/
+docker rm -f tmp-nginx
+```
+
 ## 启动命令
 
 {% tabs %}
@@ -27,11 +42,13 @@ docker run -d \
 --restart unless-stopped \
 --net backend \
 -e TZ=Asia/Shanghai \
+-e LANG=C.UTF-8 \
+-e LC_ALL=C.UTF-8 \
 -p 80:80 \
 -p 443:443 \
--v ${NFS}/nginx/data/www:/var/web \
+-v ${NFS}/nginx/data/www:/usr/share/nginx/html \
 -v ${NFS}/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
--v ${NFS}/nginx/conf/vhost:/etc/nginx/vhost:ro \
+-v ${NFS}/nginx/conf/conf.d:/etc/nginx/conf.d:ro \
 nginx:stable-alpine
 ```
 {% endtab %}
@@ -42,25 +59,33 @@ nginx:stable-alpine
 docker service create --replicas 1 \
 --name nginx \
 --network staging \
---publish mode=host,target=80,published=80 \
---publish mode=host,target=443,published=443 \
 -e TZ=Asia/Shanghai \
---mount type=bind,src=${NFS}/nginx/data/www,dst=/var/web \
+-e LANG=C.UTF-8 \
+-e LC_ALL=C.UTF-8 \
+--mount type=bind,src=${NFS}/nginx/data/www,dst=/usr/share/nginx/html \
 --mount type=bind,src=${NFS}/nginx/conf/nginx.conf,dst=/etc/nginx/nginx.conf,readonly \
---mount type=bind,src=${NFS}/nginx/conf/vhost,dst=/etc/nginx/vhost,readonly \
+--mount type=bind,src=${NFS}/nginx/conf/conf.d,dst=/etc/nginx/conf.d,readonly \
 nginx:stable-alpine
 
 #traefik参数(同时需去除--publish参数)
 --label traefik.enable=true \
 --label traefik.docker.network=staging \
---label traefik.http.routers.nginx.rule="Host(\`www.${DOMAIN}\`)" \
+--label traefik.http.routers.nginx.rule="Host(\`www.${DOMAIN}\`) || Host(\`admin.${DOMAIN}\`)" \
 --label traefik.http.routers.nginx.entrypoints=http \
 --label traefik.http.services.nginx.loadbalancer.server.port=80 \
+--label traefik.http.routers.nginx-sec.rule="Host(\`www.${DOMAIN}\`) || Host(\`admin.${DOMAIN}\`)" \
+--label traefik.http.routers.nginx-sec.entrypoints=https \
 ```
 {% endtab %}
 {% endtabs %}
 
+## 调试
 
+重启Nginx\(修改配置文件后\)
+
+```bash
+docker exec -it 容器ID service nginx reload
+```
 
 ## 参考
 
