@@ -70,9 +70,11 @@ nginx:stable-alpine
 #traefik参数(同时需去除--publish参数)
 --label traefik.enable=true \
 --label traefik.docker.network=staging \
+--label traefik.http.services.nginx.loadbalancer.server.port=80 \
 --label traefik.http.routers.nginx.rule="Host(\`www.${DOMAIN}\`) || Host(\`admin.${DOMAIN}\`)" \
 --label traefik.http.routers.nginx.entrypoints=http \
---label traefik.http.services.nginx.loadbalancer.server.port=80 \
+--label traefik.http.routers.nginx-sec.tls=true \
+--label traefik.http.routers.nginx-sec.tls.certresolver=dnsResolver \
 --label traefik.http.routers.nginx-sec.rule="Host(\`www.${DOMAIN}\`) || Host(\`admin.${DOMAIN}\`)" \
 --label traefik.http.routers.nginx-sec.entrypoints=https \
 ```

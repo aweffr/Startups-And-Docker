@@ -101,9 +101,11 @@ docker service create --replicas 1 \
 --mount type=bind,source=${NFS}/synapse,target=/data \
 --label traefik.enable=true \
 --label traefik.docker.network=staging \
+--label traefik.http.services.synapse.loadbalancer.server.port=8008 \
 --label traefik.http.routers.synapse.rule="Host(\`synapse.${DOMAIN}\`)" \
 --label traefik.http.routers.synapse.entrypoints=http \
---label traefik.http.services.synapse.loadbalancer.server.port=8008 \
+--label traefik.http.routers.synapse-sec.tls=true \
+--label traefik.http.routers.synapse-sec.tls.certresolver=dnsResolver \
 --label traefik.http.routers.synapse-sec.rule="Host(\`synapse.${DOMAIN}\`)" \
 --label traefik.http.routers.synapse-sec.entrypoints=https \
 matrixdotorg/synapse:latest
