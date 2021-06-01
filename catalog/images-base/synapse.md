@@ -38,12 +38,12 @@ mkdir ${NFS}/synapse
 #生成配置文件
 docker run -it --rm \
 -v ${NFS}/synapse:/data \
--e SYNAPSE_SERVER_NAME=chat.${DOMAIN} \
+-e SYNAPSE_SERVER_NAME=synapse.${DOMAIN} \
 -e SYNAPSE_REPORT_STATS=no \
 matrixdotorg/synapse:latest generate
 
 #修改配置文件
-vi /data/homeserver.yaml
+vi /${NFS}/synapse/homeserver.yaml
 
 #找到以下参数并改为相应值
 server_name: "你的服务器地址+端口号"
@@ -63,9 +63,6 @@ trusted_key_servers:
 
 #修改vector.im(默认的需要翻墙)
 default_identity_server: https://vector.im
-
-trusted_key_servers:
-  - server_name: "vector.im"
    
 #以下变量改一下默认值(小改几个值的字母即可)
 registration_shared_secret:
@@ -104,9 +101,11 @@ docker service create --replicas 1 \
 --mount type=bind,source=${NFS}/synapse,target=/data \
 --label traefik.enable=true \
 --label traefik.docker.network=staging \
---label traefik.http.routers.synapse.rule="Host(\`chat.${DOMAIN}\`)&&PathPrefix(\`/synapse\`)" \
+--label traefik.http.routers.synapse.rule="Host(\`synapse.${DOMAIN}\`)" \
 --label traefik.http.routers.synapse.entrypoints=http \
 --label traefik.http.services.synapse.loadbalancer.server.port=8008 \
+--label traefik.http.routers.synapse-sec.rule="Host(\`synapse.${DOMAIN}\`)" \
+--label traefik.http.routers.synapse-sec.entrypoints=https \
 matrixdotorg/synapse:latest
 ```
 {% endtab %}
