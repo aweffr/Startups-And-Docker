@@ -12,6 +12,16 @@
 
 
 
+## 前置准备
+
+```bash
+#创建数据保存目录
+mkdir ${NFS}/mysql
+
+#将密码保存进Docker Secret
+echo 'Test123456' | docker secret create MYSQL_PWD -
+```
+
 ## 启动命令
 
 {% tabs %}
@@ -23,7 +33,8 @@ docker run -d \
 --net backend \
 -p 3306:3306 \
 -e TZ=Asia/Shanghai \
--e MYSQL_ROOT_PASSWORD=Test123456 \
+--secret MYSQL_PWD \
+-e MYSQL_ROOT_PASSWORD_FILE=/run/secrets/MYSQL_PWD \
 -v ${NFS}/mysql:/var/lib/mysql \
 mysql --lower_case_table_names=1
 ```
@@ -36,8 +47,10 @@ docker service create --replicas 1 \
 --network staging \
 -p 3306:3306 \
 -e TZ=Asia/Shanghai \
--e MYSQL_ROOT_PASSWORD=Test123456 \
+--secret MYSQL_PWD \
+-e MYSQL_ROOT_PASSWORD_FILE=/run/secrets/MYSQL_PWD \
 --mount type=bind,src=${NFS}/mysql,dst=/var/lib/mysql \
+--label traefik.enable=false \
 mysql --lower_case_table_names=1
 ```
 {% endtab %}

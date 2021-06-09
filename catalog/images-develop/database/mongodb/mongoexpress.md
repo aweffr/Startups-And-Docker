@@ -36,13 +36,20 @@ docker service create --replicas 1 \
 --network staging \
 -e TZ=Asia/Shanghai \
 --name mongo-express \
---restart unless-stopped \
---network backend \
 -e ME_CONFIG_OPTIONS_EDITORTHEME="ambiance" \
 -e ME_CONFIG_MONGODB_SERVER="mongo" \
--e ME_CONFIG_BASICAUTH_USERNAME="mongoadmin" \
--e ME_CONFIG_BASICAUTH_PASSWORD="r00t" \
+-e ME_CONFIG_BASICAUTH_USERNAME="webadmin" \
+-e ME_CONFIG_BASICAUTH_PASSWORD="webr00t" \
 mongo-express
+
+
+#traefik参数
+--label traefik.enable=true \
+--label traefik.docker.network=staging \
+--label traefik.http.routers.mongo-express.rule="Host(\`mongoe.${DOMAIN}\`)" \
+--label traefik.http.routers.mongo-express.entrypoints=http \
+--label traefik.http.services.mongo-express.loadbalancer.server.port=8081 \
+
 ```
 {% endtab %}
 {% endtabs %}
