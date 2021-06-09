@@ -43,7 +43,6 @@ docker service create --replicas 1 \
 -p 9443:9443 \
 --mount type=bind,src=${NFS}/apisix/config.yaml,dst=/usr/local/apisix/conf/config.yaml \
 apache/apisix:apache/apisix:2.6-alpine
-
 ```
 {% endtab %}
 {% endtabs %}

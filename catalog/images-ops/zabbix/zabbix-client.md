@@ -26,7 +26,7 @@ docker run -d \
 -e MYSQL_USER="root" \
 -e MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PWD \
 -e ZBX_SERVER_HOST=zabbix-server \
-zabbix/zabbix-web-nginx-mysql:alpine-trunk
+zabbix/zabbix-web-nginx-mysql
 ```
 {% endtab %}
 
@@ -41,14 +41,18 @@ docker service create --replicas 1 \
 --secret MYSQL_PWD \
 -e MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PWD \
 -e ZBX_SERVER_HOST=zabbix-server \
-zabbix/zabbix-web-nginx-mysql:ubuntu-latest
+zabbix/zabbix-web-nginx-mysql
 
 #traefik参数
 --label traefik.enable=true \
 --label traefik.docker.network=staging \
+--label traefik.http.services.zabbix.loadbalancer.server.port=8080 \
 --label traefik.http.routers.zabbix.rule="Host(\`zabbix.${DOMAIN}\`)" \
 --label traefik.http.routers.zabbix.entrypoints=http \
---label traefik.http.services.zabbix.loadbalancer.server.port=8080 \
+--label traefik.http.routers.zabbix-sec.tls=true \
+--label traefik.http.routers.zabbix-sec.tls.certresolver=dnsResolver \
+--label traefik.http.routers.zabbix-sec.rule="Host(\`zabbix.${DOMAIN}\`)" \
+--label traefik.http.routers.zabbix-sec.entrypoints=https \
 ```
 {% endtab %}
 {% endtabs %}

@@ -1,3 +1,7 @@
+---
+description: 数据可视化工具
+---
+
 # Grafana
 
 ## 简介
@@ -39,6 +43,17 @@ docker service create --replicas 1 \
 -e "GF_SECURITY_ADMIN_PASSWORD=P@ssw0rd123" \
 --mount type=bind,src=${NFS}/grafana,dst=/var/lib/grafana \
 grafana/grafana
+
+#traefik参数
+--label traefik.enable=true \
+--label traefik.docker.network=staging \
+--label traefik.http.services.grafana.loadbalancer.server.port=3000 \
+--label traefik.http.routers.grafana.rule="Host(\`grafana.${DOMAIN}\`)" \
+--label traefik.http.routers.grafana.entrypoints=http \
+--label traefik.http.routers.grafana-sec.tls=true \
+--label traefik.http.routers.grafana-sec.tls.certresolver=dnsResolver \
+--label traefik.http.routers.grafana-sec.rule="Host(\`grafana.${DOMAIN}\`)" \
+--label traefik.http.routers.grafana-sec.entrypoints=https \
 ```
 {% endtab %}
 {% endtabs %}

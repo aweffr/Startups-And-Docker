@@ -16,6 +16,14 @@ description: 兼容S3的对象存储服务
 
 
 
+## 前置准备
+
+```bash
+#创建数据保存目录
+mkdir -p ${NFS}/minio/data
+mkdir -p ${NFS}/minio/conf
+```
+
 ## 启动命令
 
 {% tabs %}
@@ -50,9 +58,13 @@ minio/minio server /data
 #traefik参数
 --label traefik.enable=true \
 --label traefik.docker.network=staging \
+--label traefik.http.services.minio.loadbalancer.server.port=9000 \
 --label traefik.http.routers.minio.rule="Host(\`minio.${DOMAIN}\`)" \
 --label traefik.http.routers.minio.entrypoints=http \
---label traefik.http.services.minio.loadbalancer.server.port=9000 \
+--label traefik.http.routers.minio-sec.tls=true \
+--label traefik.http.routers.minio-sec.tls.certresolver=dnsResolver \
+--label traefik.http.routers.minio-sec.rule="Host(\`minio.${DOMAIN}\`)" \
+--label traefik.http.routers.minio-sec.entrypoints=https \
 ```
 {% endtab %}
 {% endtabs %}

@@ -34,20 +34,26 @@ jboss/keycloak
 {% endtab %}
 
 {% tab title="Swarm" %}
-    docker service create --replicas 1 \
-    --network staging \
-    -e TZ=Asia/Shanghai \
-    --name keycloak \
-    -e KEYCLOAK_USER=admin \
-    -e KEYCLOAK_PASSWORD=admin \
-    jboss/keycloak
+```bash
+docker service create --replicas 1 \
+--network staging \
+-e TZ=Asia/Shanghai \
+--name keycloak \
+-e KEYCLOAK_USER=admin \
+-e KEYCLOAK_PASSWORD=admin \
+jboss/keycloak
 
-    #traefik参数
-    --label traefik.enable=true \
-    --label traefik.docker.network=staging \
-    --label traefik.http.routers.keycloak.rule="Host(\`keycloak.${DOMAIN}\`)" \
-    --label traefik.http.routers.keycloak.entrypoints=http \
-    --label traefik.http.services.keycloak.loadbalancer.server.port=8080 \
+#traefik参数
+--label traefik.enable=true \
+--label traefik.docker.network=staging \
+--label traefik.http.services.keycloak.loadbalancer.server.port=8080 \
+--label traefik.http.routers.keycloak.rule="Host(\`keycloak.${DOMAIN}\`)" \
+--label traefik.http.routers.keycloak.entrypoints=http \
+--label traefik.http.routers.keycloak-sec.tls=true \
+--label traefik.http.routers.keycloak-sec.tls.certresolver=dnsResolver \
+--label traefik.http.routers.keycloak-sec.rule="Host(\`keycloak.${DOMAIN}\`)" \
+--label traefik.http.routers.keycloak-sec.entrypoints=https \
+```
 {% endtab %}
 {% endtabs %}
 

@@ -17,6 +17,13 @@ description: 开源持续集成工具
 
 
 
+## 前置准备
+
+```bash
+#创建数据保存目录
+mkdir ${NFS}/jenkins
+```
+
 ## 启动命令
 
 {% tabs %}
@@ -44,6 +51,17 @@ docker service create --replicas 1 \
 -p 50000:50000 \
 --mount type=bind,src=${NFS}/jenkins,dst=/var/jenkins_home \
 jenkins/jenkins:alpine
+
+#traefik参数
+--label traefik.enable=true \
+--label traefik.docker.network=staging \
+--label traefik.http.services.jenkins.loadbalancer.server.port=8080 \
+--label traefik.http.routers.jenkins.rule="Host(\`jenkins.${DOMAIN}\`)" \
+--label traefik.http.routers.jenkins.entrypoints=http \
+--label traefik.http.routers.jenkins-sec.tls=true \
+--label traefik.http.routers.jenkins-sec.tls.certresolver=dnsResolver \
+--label traefik.http.routers.jenkins-sec.rule="Host(\`jenkins.${DOMAIN}\`)" \
+--label traefik.http.routers.jenkins-sec.entrypoints=https \
 ```
 {% endtab %}
 {% endtabs %}
