@@ -58,7 +58,7 @@ scrape_configs:
      file_sd_configs:       #以 file_sd_configs 动态发现的模式，推荐使用这种方式，可以实现热添加
      - refresh_interval: 1m    #指定多久扫描一次目标配置文件
        files:
-        - /etc/prometheus/*.yaml   #指定目标文件的位置(注意文件的权限问题)
+        - /etc/prometheus/yaml/*.yaml   #指定目标文件的位置(注意文件的权限问题)
 ```
 
 ## 启动命令
@@ -72,6 +72,7 @@ docker run -d \
 --net=backend \
 --restart always \
 -v ${NFS}/prometheus/conf/prometheus.yml:/etc/prometheus/prometheus.yml \
+-v ${NFS}/prometheus/conf/yaml/:/etc/prometheus/yaml \
 -v ${NFS}/prometheus/data:/prometheus/data \
 prom/prometheus \
 --config.file=/etc/prometheus/prometheus.yml
