@@ -9,7 +9,7 @@ description: 数据库脚本管理
 | 名称 | 用途 | 内存占用 | 备注 |
 | :---: | :---: | :---: | :---: |
 | [Traefik](images-base/traefik.md) | 网关 | 25M | 替代Nginx转发功能 |
-| [APISix](images-base/apisix/) | API网关 | 103M | - |
+| [APISix](images-base/apisix/) | API网关 |  | - |
 | [Nginx](images-base/nginx.md) | Web Server | 3M | - |
 | [NextCloud](images-base/nexcloud.md) | OAuth供应器,WebDAV,文件共享 | 126M | 可将文件存储至Minio |
 | [Minio](images-base/minio.md) | 对象存储 | 165M | 兼容S3协议 |
@@ -57,7 +57,6 @@ description: 数据库脚本管理
 | [JumpServer](images-ops/jumpserver.md) | 跳板机 |  |  |
 | [Zabbix](images-ops/zabbix/) | 企业级开源监控方案 | 37M | - |
 | [Grafana](images-ops/grafana/) | 数据可视化工具 | 13M | - |
-| [Grafana/Loki](images-ops/grafana/grafana-loki.md) | 日志聚合系统 | 35M | 需配合Grafana使用 |
-| [Grafana/Promtail](images-ops/grafana/grafana-promtail.md) | 日志采集系统 | 20M | 需配合Loki使用 |
+| [Grafana/Loki](images-ops/grafana/grafana-loki.md) | 日志聚合系统 |  | 需配合Grafana使用 |
 | [Prometheus](images-ops/grafana/prometheus.md) | 服务监控 |  | 也是时序数据库 |
 
