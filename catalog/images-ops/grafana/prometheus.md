@@ -30,7 +30,15 @@ mkdir ${NFS}/prometheus
 {% tabs %}
 {% tab title="Docker" %}
 ```bash
-
+docker run -d \
+-p 9090:9090 \
+--name prometheus \
+--net=backend \
+--restart always \
+-v /nfs/conf/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml \
+-v /nfs/data/prometheus:/prometheus/data \
+prom/prometheus \
+--config.file=/etc/prometheus/prometheus.yml
 ```
 {% endtab %}
 

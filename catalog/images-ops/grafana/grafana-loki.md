@@ -37,6 +37,7 @@ docker service create --replicas 1 \
 --network staging \
 -e TZ=Asia/Shanghai \
 --mount type=bind,src=${NFS}/loki,dst=/etc/loki \
+--mount type=bind,source=${NFS}/loki/local-config.yaml,target=/etc/loki/local-config.yaml
 --label traefik.enable=false \
 grafana/loki
 ```
