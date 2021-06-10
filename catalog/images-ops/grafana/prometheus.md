@@ -35,8 +35,8 @@ docker run -d \
 --name prometheus \
 --net=backend \
 --restart always \
--v /nfs/conf/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml \
--v /nfs/data/prometheus:/prometheus/data \
+-v ${NFS}/prometheus/conf/prometheus.yml:/etc/prometheus/prometheus.yml \
+-v ${NFS}/prometheus/data:/prometheus/data \
 prom/prometheus \
 --config.file=/etc/prometheus/prometheus.yml
 ```
