@@ -12,8 +12,7 @@ description: 服务监控
 
 | 端口 | 用途 |
 | :--- | :--- |
-| 53 | DNS |
-| 8080 | 管理页面 |
+| 9090 | 通讯端口 |
 
 
 
@@ -21,7 +20,8 @@ description: 服务监控
 
 ```bash
 #创建数据保存目录
-mkdir ${NFS}/prometheus
+mkdir -p ${NFS}/prometheus/conf/yaml
+mkdir ${NFS}/prometheus/data/
 
 #创建配置文件
 vi ${NFS}/prometheus/conf/prometheus.yml
