@@ -16,6 +16,15 @@ description: 数据可视化工具
 
 
 
+## 前置准备
+
+```bash
+#创建数据保存目录
+mkdir ${NFS}/grafana
+
+chmod 777 
+```
+
 ## 启动命令
 
 {% tabs %}

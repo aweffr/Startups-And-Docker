@@ -1,8 +1,4 @@
----
-description: 服务监控
----
-
-# Prometheus
+# Grafana/Promtail
 
 ## 简介
 
@@ -21,7 +17,7 @@ description: 服务监控
 
 ```bash
 #创建数据保存目录
-mkdir ${NFS}/prometheus
+mkdir ${NFS}/promtail
 
 ```
 
@@ -36,7 +32,14 @@ mkdir ${NFS}/prometheus
 
 {% tab title="Swarm" %}
 ```bash
-
+docker service create --replicas 1 \
+--name promtail \
+--network staging \
+-e TZ=Asia/Shanghai \
+--mount type=bind,src=${NFS}/promtail,dst=/etc/promtail \
+--mount type=bind,src=/var/log,dst=/var/log \
+--label traefik.enable=false \
+grafana/promtail
 ```
 {% endtab %}
 {% endtabs %}
