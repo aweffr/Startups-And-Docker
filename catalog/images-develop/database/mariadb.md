@@ -16,7 +16,10 @@
 
 ```bash
 #创建数据保存目录
-mkdir ${NFS}/mariadb
+mkdir ${NFS}/maria
+
+#将密码保存进Docker Secret
+echo 'Test123456' | docker secret create MARIA_PWD -
 ```
 
 ## 启动命令
@@ -25,17 +28,27 @@ mkdir ${NFS}/mariadb
 {% tab title="Docker" %}
 ```bash
 docker run -d \
---name mariadb \
+--name maria \
 --restart unless-stopped \
 --network=backend \
+-p 3306:3306 \
 -e ALLOW_EMPTY_PASSWORD=yes \
--v ${NFS}/mariadb:/bitnami/mariadb \
+-v ${NFS}/maria:/bitnami/mariadb \
 bitnami/mariadb:latest
 ```
 {% endtab %}
 
 {% tab title="Swarm" %}
-
+```bash
+docker service create --replicas 1 \
+--name maria \
+--network staging \
+-p 3306:3306 \
+-e TZ=Asia/Shanghai \
+--mount type=bind,src=${NFS}/maria,dst=/bitnami/mariadb \
+--label traefik.enable=false \
+bitnami/mariadb:latest
+```
 {% endtab %}
 {% endtabs %}
 
