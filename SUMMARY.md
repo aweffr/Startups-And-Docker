@@ -54,6 +54,7 @@
     * [Portainer](catalog/images-ops/portainer.md)
     * [Matomo](catalog/images-ops/matomo.md)
     * [Dnsmasq](catalog/images-ops/dnsmasq.md)
+    * [SMTP](catalog/images-ops/smtp.md)
 * [常用命令](memo/README.md)
   * [Docker](memo/docker.md)
   * [Swarm](memo/swarm.md)
