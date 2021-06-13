@@ -50,6 +50,7 @@
       * [Prometheus](catalog/images-ops/grafana/prometheus.md)
       * [Grafana/Loki](catalog/images-ops/grafana/grafana-loki.md)
       * [Grafana/Promtail](catalog/images-ops/grafana/grafana-promtail.md)
+      * [Grafana/Tempo](catalog/images-ops/grafana/grafana-tempo.md)
     * [Portainer](catalog/images-ops/portainer.md)
     * [Matomo](catalog/images-ops/matomo.md)
     * [Dnsmasq](catalog/images-ops/dnsmasq.md)
