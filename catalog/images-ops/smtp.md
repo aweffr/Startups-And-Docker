@@ -76,13 +76,23 @@ __`:192.168.0.0/24:192.168.0.0/24:10.0.0.0/16`
 {% tabs %}
 {% tab title="Docker" %}
 ```bash
-
+docker run -d\
+--restart unless-stopped \
+--network=backend \
+-e TZ=Asia/Shanghai \
+--name smtp \
+-p 25:25 \
+ixdotai/smtp
 ```
 {% endtab %}
 
 {% tab title="Swarm" %}
 ```bash
-
+docker service create --replicas 1 \
+--name smtp \
+--network staging \
+-e TZ=Asia/Shanghai \
+ixdotai/smtp
 ```
 {% endtab %}
 {% endtabs %}
