@@ -14,10 +14,12 @@ description: 分布式跟踪后端
 
 | 端口 | 用途 |
 | :--- | :--- |
-| 53 | DNS |
-| 8080 | 管理页面 |
-
-
+| 55680 | OpenTelemetry |
+| 6831 | Jaeger - Thrift Compact |
+| 6832 | Jaeger - Thrift Binary |
+| 14268 | Jaeger - Thrift HTTP |
+| 14250 | Jaeger - GRPC |
+| 9411 | Zipkin |
 
 ## 启动命令
 
@@ -27,7 +29,20 @@ description: 分布式跟踪后端
 {% endtab %}
 
 {% tab title="Swarm" %}
-
+```bash
+docker service create --replicas 1 \
+--name tempo \
+--network staging \
+-e TZ=Asia/Shanghai \
+--mount type=bind,src=${NFS}/tempo/tempo.yaml,dst=/etc/tempo.yaml \
+--mount type=bind,src=/tmp/tempo,dst=/tmp/tempo
+grafana/tempo \
+-storage.trace.backend=local \
+-storage.trace.local.path=/tmp/tempo/traces \
+-storage.trace.wal.path=/tmp/tempo/wal \
+-auth.enabled=false \
+-server.http-listen-port=3100
+```
 {% endtab %}
 {% endtabs %}
 
