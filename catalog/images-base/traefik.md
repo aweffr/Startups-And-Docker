@@ -38,17 +38,6 @@ mkdir ${NFS}/traefik
 [log]
   level = "WARN"
   format = "common"
-  
-[metrics]
-  [metrics.prometheus]
-    buckets = [0.1,0.3,1.2,5.0]
-  [entryPoints.metrics]
-    address = ":8082"
-
-[tracing]
-  [tracing.jaeger]
-     [tracing.jaeger.collector]
-        endpoint = "http://tempo:3100/api/traces"
 
 [serversTransport]
 	insecureSkipVerify = true
