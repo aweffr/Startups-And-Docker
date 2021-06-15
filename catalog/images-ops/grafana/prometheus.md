@@ -74,8 +74,7 @@ docker run -d \
 --restart always \
 -v ${NFS}/prometheus/conf:/etc/prometheus \
 -v ${NFS}/prometheus/data:/prometheus/data \
-prom/prometheus \
---config.file=/etc/prometheus/prometheus.yml
+prom/prometheus
 ```
 {% endtab %}
 
@@ -92,11 +91,41 @@ prom/prometheus
 {% endtab %}
 {% endtabs %}
 
-Node Exporter
+## Node Exporter
 
 {% tabs %}
 {% tab title="Linux" %}
+* 运行exporter容器
 
+```bash
+docker run -d \
+-p 9100:9100 \
+--name node-exporter \
+--net=backend \
+--restart always \
+-v /proc:/host/proc \
+-v /sys:/host/sys \
+-v /:/rootfs \
+prom/node-exporter \
+--path.procfs=/host/proc \
+--path.sysfs=/host/sys \
+--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($|/)"
+```
+
+* targets.json中添加内容
+
+```javascript
+{
+    "targets": [
+      "node ip:9100"
+    ],
+    "labels": {
+      "job": "Linux"
+    }
+}
+```
+
+* Grafana添加面板: 左边栏 + 号 &gt; Import &gt; 输入 10467 &gt; 点击Load按钮
 {% endtab %}
 
 {% tab title="Windows" %}
@@ -116,13 +145,15 @@ Node Exporter
 }
 ```
 
-* Grafana添加面板: 10467
+* Grafana添加面板: 左边栏 + 号 &gt; Import &gt; 输入 10467 &gt; 点击Load按钮
 {% endtab %}
 
 {% tab title="Docker" %}
 * 运行cadvisor容器
 
 ```bash
+#使用ucloud加速的google官方镜像
+
 docker run -d \
 --name=cadvisor \
 --restart always \
@@ -149,11 +180,7 @@ uhub.service.ucloud.cn/gcr_io/cadvisor:latest
 }
 ```
 
-* Grafana添加面板: 14282
-{% endtab %}
-
-{% tab title="MySQL" %}
-
+* Grafana添加面板: 左边栏 + 号 &gt; Import &gt; 输入 14282 &gt; 点击Load按钮
 {% endtab %}
 {% endtabs %}
 
