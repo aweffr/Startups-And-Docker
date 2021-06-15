@@ -8,7 +8,7 @@ description: 分布式跟踪后端
 
 与 Grafana，Prometheus 和 Loki 深度集成分布式跟踪后端，可以使用 Jaeger，Zipkin，OpenCensus 和 OpenTelemetry 中的任何一个追踪协议。
 
-
+Tempo配置相对比较复杂，你可以通过\[[官方范例](https://github.com/grafana/tempo/tree/main/example/docker-compose)\]获得所有配置文件参数及docker-compose文件。
 
 ## EXPOSE
 
@@ -20,6 +20,20 @@ description: 分布式跟踪后端
 | 14268 | Jaeger - Thrift HTTP |
 | 14250 | Jaeger - GRPC |
 | 9411 | Zipkin |
+
+
+
+## 前置准备
+
+```bash
+#创建数据保存目录
+mkdir ${NFS}/tempo
+mkdir /tmp/tempo
+chmod 777 /tmp/tempo
+
+#下载配置文件
+wget -O ${NFS}/tempo/tempo-local.yaml https://raw.githubusercontent.com/grafana/tempo/main/example/docker-compose/local/tempo-local.yaml
+```
 
 ## 启动命令
 
@@ -34,14 +48,10 @@ docker service create --replicas 1 \
 --name tempo \
 --network staging \
 -e TZ=Asia/Shanghai \
---mount type=bind,src=${NFS}/tempo/tempo.yaml,dst=/etc/tempo.yaml \
---mount type=bind,src=/tmp/tempo,dst=/tmp/tempo
+--mount type=bind,src=${NFS}/tempo/tempo-local.yaml,dst=/etc/tempo.yaml \
+--mount type=bind,src=/tmp/tempo,dst=/tmp/tempo \
 grafana/tempo \
--storage.trace.backend=local \
--storage.trace.local.path=/tmp/tempo/traces \
--storage.trace.wal.path=/tmp/tempo/wal \
--auth.enabled=false \
--server.http-listen-port=3100
+--config.file='/etc/tempo.yaml'
 ```
 {% endtab %}
 {% endtabs %}
