@@ -63,5 +63,6 @@ grafana/tempo \
 
 官网: [https://grafana.com/oss/tempo/](https://grafana.com/oss/tempo/)  
 官方文档: [https://grafana.com/docs/tempo/latest/](https://grafana.com/docs/tempo/latest/)  
-Github: [https://github.com/grafana/tempo](https://github.com/grafana/tempo)
+Github: [https://github.com/grafana/tempo](https://github.com/grafana/tempo)  
+配置范例: [https://github.com/grafana/tempo/tree/main/operations/tempo-mixin/yamls](https://github.com/grafana/tempo/tree/main/operations/tempo-mixin/yamls)
 
