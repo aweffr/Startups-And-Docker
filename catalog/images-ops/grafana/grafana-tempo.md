@@ -14,6 +14,7 @@ Tempo配置相对比较复杂，你可以通过\[[官方范例](https://github.c
 
 | 端口 | 用途 |
 | :--- | :--- |
+| 3100 | 通讯端口 |
 | 55680 | OpenTelemetry |
 | 6831 | Jaeger - Thrift Compact |
 | 6832 | Jaeger - Thrift Binary |
