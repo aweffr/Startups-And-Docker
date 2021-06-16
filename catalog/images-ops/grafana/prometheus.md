@@ -149,7 +149,7 @@ prom/node-exporter \
 {% endtab %}
 
 {% tab title="Docker" %}
-* 运行cadvisor容器
+* 运行cAdvisor容器
 
 ```bash
 #使用ucloud加速的google官方镜像
@@ -163,7 +163,7 @@ docker run -d \
 -v /sys:/sys:ro \
 -v /var/lib/docker/:/var/lib/docker:ro \
 -v /dev/disk/:/dev/disk:ro \
--p 8080:8080 \
+-p 18081:8080 \
 uhub.service.ucloud.cn/gcr_io/cadvisor:latest
 ```
 
@@ -172,7 +172,7 @@ uhub.service.ucloud.cn/gcr_io/cadvisor:latest
 ```javascript
 {
     "targets": [
-      "服务器ip:8080"
+      "服务器ip:18081"
     ],
     "labels": {
       "job": "docker"

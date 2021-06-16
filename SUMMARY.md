@@ -1,7 +1,8 @@
 # Table of contents
 
 * [前言](README.md)
-* [初始环境](init-env.md)
+* [初始环境](init-env/README.md)
+  * [初始套装](init-env/init-set.md)
 * [应用目录](catalog/README.md)
   * [基础应用](catalog/images-base/README.md)
     * [Traefik](catalog/images-base/traefik.md)
