@@ -36,8 +36,18 @@ docker service create --replicas 1 \
 -e TZ=Asia/Shanghai \
 -e PMA_ARBITRARY=1 \
 -e PMA_HOST=mysql \
--p 8081:80 \
 phpmyadmin/phpmyadmin
+
+#traefik参数
+--label traefik.enable=true \
+--label traefik.docker.network=staging \
+--label traefik.http.services.myadmin.loadbalancer.server.port=3000 \
+--label traefik.http.routers.myadmin.rule="Host(\`myadmin.${DOMAIN}\`)" \
+--label traefik.http.routers.myadmin.entrypoints=http \
+--label traefik.http.routers.myadmin-sec.tls=true \
+--label traefik.http.routers.myadmin-sec.tls.certresolver=dnsResolver \
+--label traefik.http.routers.myadmin-sec.rule="Host(\`myadmin.${DOMAIN}\`)" \
+--label traefik.http.routers.myadmin-sec.entrypoints=https \
 ```
 {% endtab %}
 {% endtabs %}
