@@ -42,7 +42,7 @@ description: 数据库脚本管理
 | [Gitea](images-cicd/gitea.md) | 版本控制 | 115M | Gogs分叉版本，支持OAuth2和S3 |
 | [Phabricator](images-cicd/phabricator.md) | 代码审核 |  | 界面比Gerrit更人性化 |
 | [Drone](images-cicd/drone/) | 开源持续集成工具 | 21M | 适合发布服务端程序 |
-| [Jenkins](images-cicd/jenkins.md) | 开源持续集成工具 | 1.051G | 适合发布客户端程序 |
+| [Jenkdins](images-cicd/jenkins.md) | 开源持续集成工具 | 1.051G | 适合发布客户端程序 |
 
 ### 运维环境
 

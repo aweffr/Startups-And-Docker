@@ -133,8 +133,6 @@ traefik
 {% endtab %}
 
 {% tab title="Swarm" %}
-
-
 ```bash
 docker service create --replicas 1 \
 --name traefik \

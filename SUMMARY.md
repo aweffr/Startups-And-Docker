@@ -57,6 +57,7 @@
     * [Dnsmasq](catalog/images-ops/dnsmasq.md)
     * [SMTP](catalog/images-ops/smtp.md)
 * [常用命令](memo/README.md)
+  * [Linux](memo/linux.md)
   * [Docker](memo/docker.md)
   * [Swarm](memo/swarm.md)
   * [Stack](memo/stack.md)
