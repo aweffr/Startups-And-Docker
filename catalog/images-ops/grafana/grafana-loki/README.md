@@ -48,7 +48,8 @@ Loki支持以下应用作为日志数据发送方
 
 ```bash
 #创建数据保存目录
-mkdir ${NFS}/grafana
+mkdir -p ${NFS}/loki/data
+chmod +w ${NFS}/loki/data
 
 #安装Docker插件(可获取容器log)
 docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
@@ -70,7 +71,7 @@ docker service create --replicas 1 \
 --name loki \
 --network staging \
 -e TZ=Asia/Shanghai \
---mount type=bind,src=${NFS}/loki,dst=/etc/loki \
+--mount type=bind,src=${NFS}/loki/data,dst=/loki \
 --mount type=bind,source=${NFS}/loki/local-config.yaml,target=/etc/loki/local-config.yaml \
 -e JAEGER_AGENT_HOST=tempo \
 -e JAEGER_ENDPOINT="http://tempo:14268/api/traces" \
