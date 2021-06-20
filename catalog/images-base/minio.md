@@ -73,9 +73,8 @@ minio/minio server /data
 
 ## 参考
 
-官网: [https://min.io/](https://min.io/)
-
-DockerHub: [https://hub.docker.com/r/minio/minio](https://hub.docker.com/r/minio/minio)
-
+官网: [https://min.io/](https://min.io/)  
+DockerHub: [https://hub.docker.com/r/minio/minio](https://hub.docker.com/r/minio/minio)  
+中文帮助: [http://docs.minio.org.cn/docs/](http://docs.minio.org.cn/docs/)  
 参考手册: [https://docs.min.io/cn/minio-quickstart-guide.html](https://docs.min.io/cn/minio-quickstart-guide.html)
 
