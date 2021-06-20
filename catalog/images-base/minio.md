@@ -49,8 +49,8 @@ docker service create --replicas 1 \
 -e TZ=Asia/Shanghai \
 -e "MINIO_REGION_NAME=Area1" \
 -e "MINIO_BROWSER=on" \
--e "MINIO_ACCESS_KEY=minioadmin" \
--e "MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MD8NG/bPxRfiBY7XAMPLEKEY" \
+-e "MINIO_ROOT_USER=minioadmin" \
+-e "MINIO_ROOT_PASSWORD=wJalrXUtnFEMI/K7MD8NG/bPxRfiBY7XAMPLEKEY" \
 --mount type=bind,src=${NFS}/minio/data,dst=/data \
 --mount type=bind,src=${NFS}/minio/conf,dst=/root/.minio \
 minio/minio server /data

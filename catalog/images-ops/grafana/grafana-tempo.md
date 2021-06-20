@@ -53,6 +53,11 @@ docker service create --replicas 1 \
 --mount type=bind,src=/tmp/tempo,dst=/tmp/tempo \
 grafana/tempo \
 --config.file='/etc/tempo.yaml'
+
+#Traceing
+--tracing.jaeger=true
+--tracing.jaeger.propagation=jaeger
+--tracing.jaeger.collector.endpoint=http://tempo:14268/api/traces?format=jaeger.thrift
 ```
 {% endtab %}
 {% endtabs %}

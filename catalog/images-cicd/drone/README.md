@@ -123,7 +123,6 @@ docker service create --replicas 1 \
 --network staging \
 -e TZ=Asia/Shanghai \
 -e DRONE_AGENTS_ENABLED=true \
--e DRONE_DATADOG_ENABLED=false \
 -e DRONE_USER_CREATE=username:rakutens,admin:true \
 -e DRONE_SERVER_HOST=drone.${DOMAIN} \
 -e DRONE_SERVER_PROTO=http \
