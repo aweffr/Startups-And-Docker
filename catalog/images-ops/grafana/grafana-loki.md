@@ -55,6 +55,7 @@ docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all
 
 #下载配置文件
 wget -O ${NFS}/loki/local-config.yaml https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-docker-config.yaml
+wget -O ${NFS}/loki/datasources.yaml https://github.com/grafana/tempo/blob/main/example/docker-compose/loki/grafana-datasources.yaml
 ```
 
 ## 启动命令
@@ -71,9 +72,9 @@ docker service create --replicas 1 \
 --network staging \
 -e TZ=Asia/Shanghai \
 --mount type=bind,src=${NFS}/loki,dst=/etc/loki \
---mount type=bind,source=${NFS}/loki/local-config.yaml,target=/etc/loki/local-config.yaml
+--mount type=bind,source=${NFS}/loki/local-config.yaml,target=/etc/loki/local-config.yaml \
 -e JAEGER_AGENT_HOST=tempo \
--e JAEGER_ENDPOINT=http://tempo:14268/api/traces \
+-e JAEGER_ENDPOINT="http://tempo:14268/api/traces" \
 -e JAEGER_SAMPLER_TYPE=const \
 -e JAEGER_SAMPLER_PARAM=100 \
 --label traefik.enable=false \

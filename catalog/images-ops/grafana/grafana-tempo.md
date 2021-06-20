@@ -51,13 +51,19 @@ docker service create --replicas 1 \
 -e TZ=Asia/Shanghai \
 --mount type=bind,src=${NFS}/tempo/tempo-local.yaml,dst=/etc/tempo.yaml \
 --mount type=bind,src=/tmp/tempo,dst=/tmp/tempo \
+--label traefik.enable=false \
 grafana/tempo \
 --config.file='/etc/tempo.yaml'
+
+
+#Traefik Traceing
+--tracing.jaeger=true
+--tracing.jaeger.propagation=jaeger
+--tracing.jaeger.collector.endpoint=http://tempo:14268/api/traces?format=jaeger.thrift
+
 ```
 {% endtab %}
 {% endtabs %}
-
-
 
 ## 参考
 
