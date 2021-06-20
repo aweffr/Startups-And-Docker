@@ -14,7 +14,8 @@ Tempo配置相对比较复杂，你可以通过\[[官方范例](https://github.c
 
 | 端口 | 用途 |
 | :--- | :--- |
-| 3100 | 通讯端口 |
+| 3100 | HTTP数据查询端口 |
+| 9095 | gRPC数据查询端口 |
 | 55680 | OpenTelemetry |
 | 6831 | Jaeger - Thrift Compact |
 | 6832 | Jaeger - Thrift Binary |
@@ -22,7 +23,7 @@ Tempo配置相对比较复杂，你可以通过\[[官方范例](https://github.c
 | 14250 | Jaeger - GRPC |
 | 9411 | Zipkin |
 
-
+`除3100端口外，其它端口必需用-p参数注明才能正确接收trace数据!`
 
 ## 前置准备
 
