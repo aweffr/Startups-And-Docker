@@ -47,8 +47,6 @@ docker service create --replicas 1 \
 --name jenkins \
 --network staging \
 -e TZ=Asia/Shanghai \
--p 8080:8080 \
--p 50000:50000 \
 --mount type=bind,src=${NFS}/jenkins,dst=/var/jenkins_home \
 jenkins/jenkins:alpine
 

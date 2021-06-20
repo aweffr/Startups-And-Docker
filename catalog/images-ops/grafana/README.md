@@ -23,6 +23,8 @@ description: 数据可视化工具
 mkdir ${NFS}/grafana
 
 chmod 777 
+
+wget -O ${NFS}/grafana/datasources.yaml https://github.com/grafana/tempo/blob/main/example/docker-compose/loki/grafana-datasources.yaml
 ```
 
 ## 启动命令

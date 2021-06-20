@@ -31,13 +31,23 @@ phpmyadmin/phpmyadmin
 {% tab title="Swarm" %}
 ```bash
 docker service create --replicas 1 \
---name myadmin \
+--name pma \
 --network staging \
 -e TZ=Asia/Shanghai \
 -e PMA_ARBITRARY=1 \
 -e PMA_HOST=mysql \
--p 8081:80 \
 phpmyadmin/phpmyadmin
+
+#traefik参数
+--label traefik.enable=true \
+--label traefik.docker.network=staging \
+--label traefik.http.services.pma.loadbalancer.server.port=80 \
+--label traefik.http.routers.pma.rule="Host(\`pma.${DOMAIN}\`)" \
+--label traefik.http.routers.pma.entrypoints=http \
+--label traefik.http.routers.pma-sec.tls=true \
+--label traefik.http.routers.pma-sec.tls.certresolver=dnsResolver \
+--label traefik.http.routers.pma-sec.rule="Host(\`pma.${DOMAIN}\`)" \
+--label traefik.http.routers.pma-sec.entrypoints=https \
 ```
 {% endtab %}
 {% endtabs %}

@@ -42,7 +42,7 @@ description: 数据库脚本管理
 | [Gitea](images-cicd/gitea.md) | 版本控制 | 115M | Gogs分叉版本，支持OAuth2和S3 |
 | [Phabricator](images-cicd/phabricator.md) | 代码审核 |  | 界面比Gerrit更人性化 |
 | [Drone](images-cicd/drone/) | 开源持续集成工具 | 21M | 适合发布服务端程序 |
-| [Jenkins](images-cicd/jenkins.md) | 开源持续集成工具 | 1.051G | 适合发布客户端程序 |
+| [Jenkdins](images-cicd/jenkins.md) | 开源持续集成工具 | 1.051G | 适合发布客户端程序 |
 
 ### 运维环境
 
@@ -57,7 +57,7 @@ description: 数据库脚本管理
 | [JumpServer](images-ops/jumpserver.md) | 跳板机 |  |  |
 | [Zabbix](images-ops/zabbix/) | 企业级开源监控方案 | 37M | - |
 | [Grafana](images-ops/grafana/) | 数据可视化工具 | 13M | - |
-| [Grafana/Loki](images-ops/grafana/grafana-loki.md) | 日志聚合系统 | 35M | 需配合Grafana使用 |
-| [Grafana/Promtail](images-ops/grafana/grafana-promtail.md) | 日志采集系统 | 20M | 需配合Loki使用 |
+| [Grafana/Loki](images-ops/grafana/grafana-loki/) | 日志聚合系统 | 35M | 需配合Grafana使用 |
+| [Grafana/Promtail](images-ops/grafana/grafana-loki/grafana-promtail.md) | 日志采集系统 | 20M | 需配合Loki使用 |
 | [Prometheus](images-ops/grafana/prometheus.md) | 服务监控 |  | 也是时序数据库 |
 
