@@ -78,7 +78,7 @@ jumpserver/jms_all
 docker service create --replicas 1 \
 --network staging \
 -e TZ=Asia/Shanghai \
---name jumpserver \
+--name jms \
 -e SECRET_KEY=$SECRET_KEY \
 -e BOOTSTRAP_TOKEN=$BOOTSTRAP_TOKEN \
 -e DB_HOST=mysql \
@@ -93,13 +93,13 @@ jumpserver/jms_all
 #traefik参数
 --label traefik.enable=true \
 --label traefik.docker.network=staging \
---label traefik.http.services.jps.loadbalancer.server.port=80 \
---label traefik.http.routers.jps.rule="Host(\`jps.${DOMAIN}\`)" \
---label traefik.http.routers.jps.entrypoints=http \
---label traefik.http.routers.jps-sec.tls=true \
---label traefik.http.routers.jps-sec.tls.certresolver=dnsResolver \
---label traefik.http.routers.jps-sec.rule="Host(\`jps.${DOMAIN}\`)" \
---label traefik.http.routers.jps-sec.entrypoints=https \
+--label traefik.http.services.jms.loadbalancer.server.port=80 \
+--label traefik.http.routers.jms.rule="Host(\`jms.${DOMAIN}\`)" \
+--label traefik.http.routers.jms.entrypoints=http \
+--label traefik.http.routers.jms-sec.tls=true \
+--label traefik.http.routers.jms-sec.tls.certresolver=dnsResolver \
+--label traefik.http.routers.jms-sec.rule="Host(\`jms.${DOMAIN}\`)" \
+--label traefik.http.routers.jms-sec.entrypoints=https \
 ```
 {% endtab %}
 {% endtabs %}
