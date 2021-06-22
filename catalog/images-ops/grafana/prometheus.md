@@ -84,6 +84,7 @@ docker service create --replicas 1 \
 --name prometheus \
 --network staging \
 -e TZ=Asia/Shanghai \
+-p 9090:9090 \
 --mount type=bind,src=${NFS}/prometheus/conf,dst=/etc/prometheus \
 --mount type=bind,src=${NFS}/prometheus/data,dst=/prometheus/data \
 --label traefik.enable=false \

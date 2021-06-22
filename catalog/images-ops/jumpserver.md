@@ -93,9 +93,13 @@ jumpserver/jms_all
 #traefik参数
 --label traefik.enable=true \
 --label traefik.docker.network=staging \
---label traefik.http.routers.jumpserver.rule="Host(\`jumpserver.${DOMAIN}\`)" \
---label traefik.http.routers.jumpserver.entrypoints=http \
---label traefik.http.services.jumpserver.loadbalancer.server.port=80 \
+--label traefik.http.services.jps.loadbalancer.server.port=80 \
+--label traefik.http.routers.jps.rule="Host(\`jps.${DOMAIN}\`)" \
+--label traefik.http.routers.jps.entrypoints=http \
+--label traefik.http.routers.jps-sec.tls=true \
+--label traefik.http.routers.jps-sec.tls.certresolver=dnsResolver \
+--label traefik.http.routers.jps-sec.rule="Host(\`jps.${DOMAIN}\`)" \
+--label traefik.http.routers.jps-sec.entrypoints=https \
 ```
 {% endtab %}
 {% endtabs %}
