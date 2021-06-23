@@ -54,10 +54,10 @@ description: 数据库脚本管理
 | Elkarbackup | 数据备份 |  | - |
 | Alerta | 报警信息整合 |  | - |
 | [Dnsmasq](images-ops/dnsmasq.md) | DNS解析 | 9.45M | - |
-| [JumpServer](images-ops/jumpserver.md) | 跳板机 |  |  |
+| [JumpServer](images-ops/jumpserver.md) | 跳板机 | 1220M |  |
 | [Zabbix](images-ops/zabbix/) | 企业级开源监控方案 | 37M | - |
 | [Grafana](images-ops/grafana/) | 数据可视化工具 | 13M | - |
 | [Grafana/Loki](images-ops/grafana/grafana-loki/) | 日志聚合系统 | 35M | 需配合Grafana使用 |
 | [Grafana/Promtail](images-ops/grafana/grafana-loki/grafana-promtail.md) | 日志采集系统 | 20M | 需配合Loki使用 |
-| [Prometheus](images-ops/grafana/prometheus.md) | 服务监控 |  | 也是时序数据库 |
+| [Prometheus](images-ops/grafana/prometheus/) | 服务监控 | 354M | 也是时序数据库 |
 
