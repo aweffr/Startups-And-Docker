@@ -48,6 +48,14 @@ mysql> exit;
 mkdir ${NFS}/jumpserver
 ```
 
+6. 查看Docker网段
+
+```bash
+#把staging改为你的网络名
+docker network inspect staging
+#复制 "Config">"Subnet"中的内容如 "10.0.0.0/24"
+```
+
 ## 启动命令
 
 {% tabs %}
@@ -79,6 +87,7 @@ docker service create --replicas 1 \
 --network staging \
 -e TZ=Asia/Shanghai \
 --name jms \
+-e DOCKER_SUBNET=10.0.0.0/24 \
 -e SECRET_KEY=$SECRET_KEY \
 -e BOOTSTRAP_TOKEN=$BOOTSTRAP_TOKEN \
 -e DB_HOST=mysql \
@@ -88,6 +97,7 @@ docker service create --replicas 1 \
 -e REDIS_HOST=redis \
 -e REDIS_PASSWORD="123456" \
 --mount type=bind,src=${NFS}/jumpserver,dst=/opt/jumpserver/data/media \
+--mount type=bind,src=${NFS}/jumpserver/logs,dst=/opt/jumpserver/logs \
 jumpserver/jms_all
 
 #traefik参数
@@ -104,7 +114,9 @@ jumpserver/jms_all
 {% endtab %}
 {% endtabs %}
 
-
+{% hint style="info" %}
+DOCKER\_SUBNET必须为前置第6步中查到的值，不然远程连接会失败
+{% endhint %}
 
 ## 参考
 
