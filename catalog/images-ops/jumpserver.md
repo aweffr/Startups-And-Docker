@@ -56,6 +56,8 @@ docker network inspect staging
 #复制 "Config">"Subnet"中的内容如 "10.0.0.0/24"，然后赋值给启动命令中的DOCKER_SUBNET变量
 ```
 
+`不设置DOCKER_SUBNET将会导致连接服务器失败`
+
 ## 启动命令
 
 {% tabs %}
@@ -97,8 +99,8 @@ docker service create --replicas 1 \
 -e REDIS_HOST=redis \
 -e REDIS_PASSWORD="123456" \
 --mount type=bind,src=${NFS}/jumpserver,dst=/opt/jumpserver/data/media \
---mount type=bind,src=${NFS}/jumpserver/logs/nginx,dst=/var/log/nginx \
 --mount type=bind,src=${NFS}/jumpserver/logs,dst=/opt/jumpserver/logs \
+--mount type=bind,src=${NFS}/jumpserver/logs/nginx,dst=/var/log/nginx \
 jumpserver/jms_all
 
 #traefik参数
