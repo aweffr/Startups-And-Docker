@@ -121,6 +121,11 @@ jumpserver/jms_all
 DOCKER\_SUBNET必须为前置第6步中查到的值，不然远程连接会失败
 {% endhint %}
 
+## 常见问题
+
+* 如第一次运行因参数错而失败，请修改参数后并重置数据库再试
+* 安装完后，连远程服务器如报nginx 502错误，把jms重启一次即可
+
 ## 参考
 
 官网 [http://www.jumpserver.org](http://www.jumpserver.org)   
