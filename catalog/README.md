@@ -19,6 +19,7 @@ description: 数据库脚本管理
 | [Dokuwiki](images-base/dokuwiki.md) | Wiki |  | - |
 | [Ocserv](images-base/ocserv.md) | OpenConnect VPN服务端 |  | 兼容Cisco Anyconnect |
 | [Bitwarden](images-base/bitwarden.md) | 开源的密码管理服务 |  | 供客户端程序使用 |
+| PhotoPrism | 照片分享平台 |  |  |
 
 ### 开发应用
 

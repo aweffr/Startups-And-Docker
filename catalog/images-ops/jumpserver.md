@@ -45,7 +45,7 @@ mysql> exit;
 
 ```bash
 #创建数据保存目录
-mkdir ${NFS}/jumpserver
+mkdir -p ${NFS}/jumpserver/logs/nginx
 ```
 
 6. 查看Docker网段
@@ -53,7 +53,7 @@ mkdir ${NFS}/jumpserver
 ```bash
 #把staging改为你的网络名
 docker network inspect staging
-#复制 "Config">"Subnet"中的内容如 "10.0.0.0/24"
+#复制 "Config">"Subnet"中的内容如 "10.0.0.0/24"，然后赋值给启动命令中的DOCKER_SUBNET变量
 ```
 
 ## 启动命令
@@ -97,6 +97,7 @@ docker service create --replicas 1 \
 -e REDIS_HOST=redis \
 -e REDIS_PASSWORD="123456" \
 --mount type=bind,src=${NFS}/jumpserver,dst=/opt/jumpserver/data/media \
+--mount type=bind,src=${NFS}/jumpserver/logs/nginx,dst=/var/log/nginx \
 --mount type=bind,src=${NFS}/jumpserver/logs,dst=/opt/jumpserver/logs \
 jumpserver/jms_all
 

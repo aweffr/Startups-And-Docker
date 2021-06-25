@@ -22,7 +22,8 @@ description: 开源云原生网关
 
 ```bash
 #创建数据保存目录
-mkdir ${NFS}/traefik
+mkdir -p ${NFS}/traefik/logs
+mkdir -p ${NFS}/traefik/config
 ```
 
 ```yaml
@@ -37,7 +38,6 @@ mkdir ${NFS}/traefik
 
 [log]
   level = "WARN"
-  format = "common"
   
 [metrics]
   [metrics.prometheus]
@@ -147,7 +147,9 @@ docker service create --replicas 1 \
 -e TZ=Asia/Shanghai \
 --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
 --mount type=bind,source=${NFS}/traefik,target=/etc/traefik \
+--mount type=bind,source=${NFS}/traefik/logs,target=/etc/traefik/log \
 --mount type=bind,source=${NFS}/traefik/config,target=/etc/traefik/config,readonly \
+--log.filePath=/etc/traefik/log/traefik.log
 traefik
 ```
 {% endtab %}
