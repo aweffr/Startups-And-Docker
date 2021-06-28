@@ -24,7 +24,7 @@ docker run -d \
 --name apisix-dashboard
 -v ${NFS}/apisix/dashboard.yaml:/usr/local/apisix-dashboard/conf/conf.yaml 
 -p 9000:9000 
-apache/apisix-dashboard:2.6
+apache/apisix-dashboard:2.7
 ```
 {% endtab %}
 
@@ -35,7 +35,7 @@ docker service create --replicas 1 \
 --network staging \
 -e TZ=Asia/Shanghai \
 --mount type=bind,src=${NFS}/apisix/dashboard.yaml,dst=/usr/local/apisix-dashboard/conf/conf.yaml \
-apache/apisix-dashboard:2.6
+apache/apisix-dashboard:2.7
 
 #traefik参数
 --label traefik.enable=true \
