@@ -12,7 +12,8 @@ description: 开源API网关
 
 | 端口 | 用途 |
 | :--- | :--- |
-| 9080 | API端口 |
+| 9080 | HTTP API端口 |
+| 9443 | HTTPS API端口 |
 
 
 
