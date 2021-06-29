@@ -31,7 +31,7 @@ wget -O ${NFS}/element/config.json https://raw.githubusercontent.com/vector-im/e
 {% tab title="Docker" %}
 ```bash
 docker run -d \
---name element \
+--name chat \
 --net backend \
 -p 80:80\
 -e TZ=Asia/Shanghai \
@@ -43,7 +43,7 @@ vectorim/element-web
 {% tab title="Swarm" %}
 ```bash
 docker service create --replicas 1 \
---name element \
+--name chat \
 --network staging \
 -e TZ=Asia/Shanghai \
 -e LANG=C.UTF-8 \
