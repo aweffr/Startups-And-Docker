@@ -12,8 +12,7 @@ description: synapse网页版客户端
 
 | 端口 | 用途 |
 | :--- | :--- |
-| 53 | DNS |
-| 8080 | 管理页面 |
+| 80 | WEB入口 |
 
 
 
@@ -22,6 +21,8 @@ description: synapse网页版客户端
 ```bash
 #创建数据保存目录
 mkdir ${NFS}/element
+
+wget -O ${NFS}/element/config.json https://raw.githubusercontent.com/vector-im/element-web/develop/element.io/app/config.json
 ```
 
 ## 启动命令
@@ -40,7 +41,25 @@ vectorim/element-web
 {% endtab %}
 
 {% tab title="Swarm" %}
-
+```bash
+docker service create --replicas 1 \
+--name element \
+--network staging \
+-e TZ=Asia/Shanghai \
+-e LANG=C.UTF-8 \
+-e LC_ALL=C.UTF-8 \
+--mount type=bind,src=${NFS}/element-web/config.json,dst=/app/config.json \
+--label traefik.enable=true \
+--label traefik.docker.network=staging \
+--label traefik.http.services.chat.loadbalancer.server.port=80 \
+--label traefik.http.routers.chat.rule="Host(\`chat.${DOMAIN}\`)" \
+--label traefik.http.routers.chat.entrypoints=http \
+--label traefik.http.routers.chat-sec.tls=true \
+--label traefik.http.routers.chat-sec.tls.certresolver=dnsResolver \
+--label traefik.http.routers.chat-sec.rule="Host(\`chat.${DOMAIN}\`)" \
+--label traefik.http.routers.chat-sec.entrypoints=https \
+vectorim/element-web
+```
 {% endtab %}
 {% endtabs %}
 
