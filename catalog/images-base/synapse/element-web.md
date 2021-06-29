@@ -48,7 +48,7 @@ docker service create --replicas 1 \
 -e TZ=Asia/Shanghai \
 -e LANG=C.UTF-8 \
 -e LC_ALL=C.UTF-8 \
---mount type=bind,src=${NFS}/element-web/config.json,dst=/app/config.json \
+--mount type=bind,src=${NFS}/element/config.json,dst=/app/config.json \
 --label traefik.enable=true \
 --label traefik.docker.network=staging \
 --label traefik.http.services.chat.loadbalancer.server.port=80 \
