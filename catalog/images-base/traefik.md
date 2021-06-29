@@ -147,9 +147,7 @@ docker service create --replicas 1 \
 -e TZ=Asia/Shanghai \
 --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
 --mount type=bind,source=${NFS}/traefik,target=/etc/traefik \
---mount type=bind,source=${NFS}/traefik/logs,target=/etc/traefik/log \
 --mount type=bind,source=${NFS}/traefik/config,target=/etc/traefik/config,readonly \
---log.filePath=/etc/traefik/log/traefik.log
 traefik
 ```
 {% endtab %}
