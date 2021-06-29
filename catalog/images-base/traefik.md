@@ -22,7 +22,6 @@ description: 开源云原生网关
 
 ```bash
 #创建数据保存目录
-mkdir -p ${NFS}/traefik/logs
 mkdir -p ${NFS}/traefik/config
 ```
 
