@@ -137,7 +137,7 @@ docker service create --replicas 1 \
 --name traefik \
 --network staging \
 -p 8080:8080 \
--p 80:80 -p 444:443 \
+-p 80:80 -p 443:443 \
 --constraint=node.role==manager \
 --secret ali_access \
 --secret ali_secret \
