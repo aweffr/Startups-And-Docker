@@ -15,7 +15,7 @@ description: 数据库脚本管理
 | [Minio](images-base/minio.md) | 对象存储 | 165M | 兼容S3协议 |
 | [Wordpress](images-base/wordpress.md) | 开源博客平台 |  | - |
 | Flarum | 开源论坛 |  |  |
-| [Synapse](images-base/synapse.md) | 聊天室服务器 | 87M |  |
+| [Synapse](images-base/synapse/) | 聊天室服务器 | 87M |  |
 | [Dokuwiki](images-base/dokuwiki.md) | Wiki |  | - |
 | [Ocserv](images-base/ocserv.md) | OpenConnect VPN服务端 |  | 兼容Cisco Anyconnect |
 | [Bitwarden](images-base/bitwarden.md) | 开源的密码管理服务 |  | 供客户端程序使用 |
