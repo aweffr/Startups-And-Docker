@@ -25,6 +25,24 @@ mkdir ${NFS}/element
 wget -O ${NFS}/element/config.json https://raw.githubusercontent.com/vector-im/element-web/develop/element.io/app/config.json
 ```
 
+* 修改config.json 先删除default\_server\_name项，然后在同位置添加以下内容
+
+```javascript
+//设置默认服务器
+"default_server_config": {
+  "m.homeserver": {
+    "base_url": "你的synapse服务器地址"
+  },
+  "m.identity_server": {
+    "base_url": "https://vector.im"
+  }
+},
+//禁止修改默认服务器
+"disable_custom_urls": false,
+//修改邀请链接主地址
+"permalinkPrefix": "你的element-web访问地址"
+```
+
 ## 启动命令
 
 {% tabs %}
@@ -66,4 +84,6 @@ vectorim/element-web
 
 
 ## 参考
+
+config.json参考: [https://github.com/vector-im/element-web/blob/develop/docs/config.md](https://github.com/vector-im/element-web/blob/develop/docs/config.md)
 
