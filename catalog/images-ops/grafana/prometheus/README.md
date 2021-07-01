@@ -22,6 +22,7 @@ description: 服务监控
 #创建数据保存目录
 mkdir -p ${NFS}/prometheus/conf
 mkdir ${NFS}/prometheus/data
+chmod 777 ${NFS}/prometheus/data
 touch ${NFS}/prometheus/conf/targets.json
 
 #创建配置文件
@@ -86,7 +87,7 @@ docker service create --replicas 1 \
 -e TZ=Asia/Shanghai \
 -p 9090:9090 \
 --mount type=bind,src=${NFS}/prometheus/conf,dst=/etc/prometheus \
---mount type=bind,src=${NFS}/prometheus/data,dst=/prometheus/data \
+--mount type=bind,src=${NFS}/prometheus/data,dst=/prometheus \
 --label traefik.enable=false \
 prom/prometheus
 ```
