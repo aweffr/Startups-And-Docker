@@ -8,7 +8,7 @@ description: 聊天室服务器
 
 Synapse是riot/matrix的官方服务器端
 
-相对于Rocket.Chat需要占用510M内存，并且使用MongoDB，我更喜欢只占86M内存的Synapse
+相对于Rocket.Chat需要占用510M内存，并且使用MongoDB，我更喜欢只占86M内存的Synaps
 
 默认情况下Synapse使用SQLite数据库，但你可以手动切换成PostgreSQL
 
@@ -48,7 +48,7 @@ vi /${NFS}/synapse/homeserver.yaml
 #找到以下参数并改为相应值
 server_name: "你的服务器地址+端口号"
 
-#可修改为使用PostgreSQL(可选)
+#修改为使用PostgreSQL(可选)
 database: 
 
 #允许注册
@@ -99,6 +99,9 @@ docker service create --replicas 1 \
 --network staging \
 -e TZ=Asia/Shanghai \
 --mount type=bind,source=${NFS}/synapse,target=/data \
+matrixdotorg/synapse:latest
+
+#traefik参数
 --label traefik.enable=true \
 --label traefik.docker.network=staging \
 --label traefik.http.services.synapse.loadbalancer.server.port=8008 \
@@ -108,7 +111,6 @@ docker service create --replicas 1 \
 --label traefik.http.routers.synapse-sec.tls.certresolver=dnsResolver \
 --label traefik.http.routers.synapse-sec.rule="Host(\`synapse.${DOMAIN}\`)" \
 --label traefik.http.routers.synapse-sec.entrypoints=https \
-matrixdotorg/synapse:latest
 ```
 {% endtab %}
 {% endtabs %}
