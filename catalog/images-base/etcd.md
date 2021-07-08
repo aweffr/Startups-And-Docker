@@ -64,7 +64,7 @@ version: '2'
 
 services:
   etcd:
-    image: docker.io/bitnami/etcd:3
+    image: docker.io/bitnami/etcd:latest
     environment:
       - ALLOW_NONE_AUTHENTICATION=yes
       - ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379
