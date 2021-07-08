@@ -57,7 +57,7 @@ grafana/tempo \
 --config.file='/etc/tempo.yaml'
 
 
-#Traefik Traceing
+#Traefik添加追踪变量(需重启)
 --tracing.jaeger=true
 --tracing.jaeger.propagation=jaeger
 --tracing.jaeger.collector.endpoint=http://tempo:14268/api/traces?format=jaeger.thrift

@@ -22,7 +22,7 @@ description: 服务监控
 #创建数据保存目录
 mkdir -p ${NFS}/prometheus/conf
 mkdir ${NFS}/prometheus/data
-chmod 777 ${NFS}/prometheus/data
+chown nobody:nogroup $USER:$USER ${NFS}/prometheus/data
 touch ${NFS}/prometheus/conf/targets.json
 
 #创建配置文件

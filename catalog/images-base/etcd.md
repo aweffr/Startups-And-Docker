@@ -17,6 +17,13 @@ description: 管理配置信息和服务发现
 
 
 
+## 前置准备
+
+```bash
+#创建数据保存目录
+mkdir ${NFS}/etcd
+```
+
 ## 启动命令
 
 {% tabs %}
@@ -45,8 +52,28 @@ docker service create --replicas 1 \
 -e ALLOW_NONE_AUTHENTICATION=yes \
 -e ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379 \
 -e ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379 \
+--mount type=bind,src=${NFS}/etcd,dst=/bitnami/etcd \
 --label traefik.enable=false \
 bitnami/etcd:latest
+```
+{% endtab %}
+
+{% tab title="Compose" %}
+```
+version: '2'
+
+services:
+  etcd:
+    image: docker.io/bitnami/etcd:3
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+      - ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+    volumes:
+      - etcd_data:/bitnami/etcd
+volumes:
+  etcd_data:
+    driver: local
 ```
 {% endtab %}
 {% endtabs %}
