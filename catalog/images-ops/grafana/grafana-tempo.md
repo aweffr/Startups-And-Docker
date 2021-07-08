@@ -14,6 +14,7 @@ Tempo配置相对比较复杂，你可以通过\[[官方范例](https://github.c
 
 | 端口 | 用途 |
 | :--- | :--- |
+| 16686 | WEB管理页面 |
 | 3100 | HTTP数据查询端口 |
 | 9095 | gRPC数据查询端口 |
 | 55680 | OpenTelemetry |
@@ -50,6 +51,7 @@ docker service create --replicas 1 \
 --name tempo \
 --network staging \
 -e TZ=Asia/Shanghai \
+-p 16686:16686 \
 --mount type=bind,src=${NFS}/tempo/tempo-local.yaml,dst=/etc/tempo.yaml \
 --mount type=bind,src=/tmp/tempo,dst=/tmp/tempo \
 --label traefik.enable=false \
