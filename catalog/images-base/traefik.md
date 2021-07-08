@@ -47,7 +47,7 @@ mkdir -p ${NFS}/traefik/config
 [tracing]
   [tracing.jaeger]
      [tracing.jaeger.collector]
-        endpoint = "http://tempo:14268/api/traces?format=jaeger.thrift"
+        endpoint = "http://tempo:3100/api/traces"
 
 [serversTransport]
 	insecureSkipVerify = true

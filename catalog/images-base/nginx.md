@@ -19,8 +19,6 @@ description: Web Server
 
 ## 前置准备
 
-* 项目配置
-
 ```bash
 #创建网站保存目录
 mkdir -p ${NFS}/nginx/data
@@ -32,14 +30,6 @@ docker run -d --name tmp-nginx nginx
 docker cp tmp-nginx:/etc/nginx/nginx.conf ${NFS}/nginx/conf/
 docker cp tmp-nginx:/etc/nginx/conf/conf.d ${NFS}/nginx/conf/conf.d/
 docker rm -f tmp-nginx
-```
-
-* 加装OpenTraceing插件\(可选\)
-
-```bash
-wget -O ${NFS}/nginx/ngx_http_module.so.tgz https://github.com/opentracing-contrib/nginx-opentracing/releases/download/v0.18.0/linux-amd64-nginx-1.20.1-ngx_http_module.so.tgz
-tar zxvf ngx_http_module.so.tgz
-rm -rf ngx_http_module.so.tgz
 ```
 
 ## 启动命令
@@ -59,7 +49,7 @@ docker run -d \
 -v ${NFS}/nginx/data/www:/usr/share/nginx/html \
 -v ${NFS}/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro \
 -v ${NFS}/nginx/conf/conf.d:/etc/nginx/conf.d:ro \
-nginx:1.20.1-alpine
+nginx:stable-alpine
 ```
 {% endtab %}
 
@@ -75,7 +65,7 @@ docker service create --replicas 1 \
 --mount type=bind,src=${NFS}/nginx/data/www,dst=/usr/share/nginx/html \
 --mount type=bind,src=${NFS}/nginx/conf/nginx.conf,dst=/etc/nginx/nginx.conf,readonly \
 --mount type=bind,src=${NFS}/nginx/conf/conf.d,dst=/etc/nginx/conf.d,readonly \
-nginx:1.20.1-alpine
+nginx:stable-alpine
 
 #traefik参数(同时需去除--publish参数)
 --label traefik.enable=true \
@@ -100,6 +90,4 @@ docker exec -it 容器ID service nginx reload
 ```
 
 ## 参考
-
-nginx-opentracing: [https://github.com/opentracing-contrib/nginx-opentracing](https://github.com/opentracing-contrib/nginx-opentracing)
 

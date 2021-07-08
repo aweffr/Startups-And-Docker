@@ -54,6 +54,8 @@ docker service create --replicas 1 \
 -p 16686:16686 \
 --mount type=bind,src=${NFS}/tempo/tempo-local.yaml,dst=/etc/tempo.yaml \
 --mount type=bind,src=/tmp/tempo,dst=/tmp/tempo \
+--log-driver=loki \
+--log-opt loki-url="https://loki:3100/api/prom/push" \
 --label traefik.enable=false \
 grafana/tempo \
 --config.file='/etc/tempo.yaml'
