@@ -31,7 +31,6 @@ description: 数据库脚本管理
 | [MongoDB](images-develop/database/mongodb/) | 数据库 | 65M | - |
 | [Redis](images-develop/cache/redis.md) | 键值对\(Key-Value\)存储数据库 | 4.5M | - |
 | [RabbitMQ](images-develop/cache/rabbitmq.md) | 开源消息队列 | 83M |  |
-| [Etcd](images-base/etcd.md) | Key/Value 存储系统 | 75M | 用于分享配置和服务发现 |
 | [Adminer](images-develop/database/adminer.md) | 多类型数据库管理 |  | 类似PhpMyAdmin |
 | [YApi](images-develop/docs/yapi.md) | 接口管理文档 |  | - |
 | [Flyway](images-develop/docs/flyway.md) | 数据库脚本管理 |  | - |
@@ -57,6 +56,7 @@ description: 数据库脚本管理
 | [Dnsmasq](images-ops/dnsmasq.md) | DNS解析 | 9.45M | - |
 | [JumpServer](images-ops/jumpserver.md) | 跳板机 | 1220M |  |
 | [Zabbix](images-ops/zabbix/) | 企业级开源监控方案 | 37M | - |
+| [Etcd](images-ops/etcd.md) | Key/Value 存储系统 | 75M | 用于分享配置和服务发现 |
 | [Grafana](images-ops/grafana/) | 数据可视化工具 | 13M | - |
 | [Grafana/Loki](images-ops/grafana/grafana-loki/) | 日志聚合系统 | 35M | 需配合Grafana使用 |
 | [Grafana/Promtail](images-ops/grafana/grafana-loki/grafana-promtail.md) | 日志采集系统 | 20M | 需配合Loki使用 |
