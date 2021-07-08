@@ -54,7 +54,7 @@ docker service create --replicas 1 \
 -e ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379 \
 --mount type=bind,src=${NFS}/etcd,dst=/bitnami/etcd \
 --label traefik.enable=false \
-bitnami/etcd:latest
+bitnami/etcd:latest 
 ```
 {% endtab %}
 
@@ -71,6 +71,8 @@ services:
       - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
     volumes:
       - etcd_data:/bitnami/etcd
+    networks:
+      - staging
 volumes:
   etcd_data:
     driver: local
