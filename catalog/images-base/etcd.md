@@ -22,6 +22,7 @@ description: 管理配置信息和服务发现
 ```bash
 #创建数据保存目录
 mkdir ${NFS}/etcd
+chmod 777 $NFS/etcd
 ```
 
 ## 启动命令
@@ -54,7 +55,7 @@ docker service create --replicas 1 \
 -e ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379 \
 --mount type=bind,src=${NFS}/etcd,dst=/bitnami/etcd \
 --label traefik.enable=false \
-bitnami/etcd:latest 
+bitnami/etcd:latest
 ```
 {% endtab %}
 
@@ -70,11 +71,11 @@ services:
       - ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379
       - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
     volumes:
-      - etcd_data:/bitnami/etcd
+      - etcd:/bitnami/etcd
     networks:
       - staging
 volumes:
-  etcd_data:
+  etcd:
     driver: local
 ```
 {% endtab %}
