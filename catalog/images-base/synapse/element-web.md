@@ -67,9 +67,6 @@ docker service create --replicas 1 \
 -e LANG=C.UTF-8 \
 -e LC_ALL=C.UTF-8 \
 --mount type=bind,src=${NFS}/element/config.json,dst=/app/config.json \
-vectorim/element-web
-
-#traefik参数
 --label traefik.enable=true \
 --label traefik.docker.network=staging \
 --label traefik.http.services.chat.loadbalancer.server.port=80 \
@@ -79,6 +76,7 @@ vectorim/element-web
 --label traefik.http.routers.chat-sec.tls.certresolver=dnsResolver \
 --label traefik.http.routers.chat-sec.rule="Host(\`chat.${DOMAIN}\`)" \
 --label traefik.http.routers.chat-sec.entrypoints=https \
+vectorim/element-web
 ```
 {% endtab %}
 {% endtabs %}
