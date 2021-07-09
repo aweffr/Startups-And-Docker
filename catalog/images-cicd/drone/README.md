@@ -33,11 +33,8 @@ mkdir ${NFS}/drone
 FROM golang:1.16.0-alpine3.13 AS Builder
 
 RUN sed -i 's/https:\/\/dl-cdn.alpinelinux.org/http:\/\/mirrors.tuna.tsinghua.edu.cn/' /etc/apk/repositories && \
-    echo "Asia/Shanghai" > /etc/timezone
-
-RUN apk add build-base && \
-    go env -w GO111MODULE=on && \
-    go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct
+    echo "Asia/Shanghai" > /etc/timezone && \
+    apk add build-base
 
 ENV DRONE_VERSION 2.0.4
 
@@ -45,7 +42,7 @@ WORKDIR /src
 
 # Build with online code
 RUN apk add curl && \
-    curl -L https://github.com/drone/drone/archive/refs/tags/v${DRONE_VERSION}.tar.gz -o v${DRONE_VERSION}.tar.gz && \
+    curl -L https://download.fastgit.org/drone/drone/archive/refs/tags/v${DRONE_VERSION}.tar.gz -o v${DRONE_VERSION}.tar.gz && \
     tar zxvf v${DRONE_VERSION}.tar.gz && \
     rm v${DRONE_VERSION}.tar.gz
 # OR with offline tarball
@@ -58,9 +55,11 @@ WORKDIR /src/drone-${DRONE_VERSION}
 #    unzip master.tar.gz && rm master.tar.gz
 #WORKDIR /src/drone-master
 
-RUN go mod download
-
 ENV CGO_CFLAGS="-g -O2 -Wno-return-local-addr"
+
+RUN go env -w GO111MODULE=on && \
+    go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct && \
+    go mod download
 
 RUN go build -ldflags "-extldflags \"-static\"" -tags="nolimit" github.com/drone/drone/cmd/drone-server
 
