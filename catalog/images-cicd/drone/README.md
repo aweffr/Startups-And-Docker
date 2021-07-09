@@ -30,7 +30,7 @@ mkdir ${NFS}/drone
 ```bash
 #docker build --rm -f docker/Dockerfile -t drone .
  
-FROM golang:1.16.0-alpine3.13 AS Builder
+FROM golang:1.16.5-alpine3.14 AS Builder
 
 RUN sed -i 's/https:\/\/dl-cdn.alpinelinux.org/http:\/\/mirrors.tuna.tsinghua.edu.cn/' /etc/apk/repositories && \
     echo "Asia/Shanghai" > /etc/timezone && \
@@ -65,14 +65,14 @@ RUN go build -ldflags "-extldflags \"-static\"" -tags="nolimit" github.com/drone
 
 
 
-FROM alpine:3.13 AS Certs
+FROM alpine:3.14 AS Certs
 RUN sed -i 's/https:\/\/dl-cdn.alpinelinux.org/http:\/\/mirrors.tuna.tsinghua.edu.cn/' /etc/apk/repositories && \
     echo "Asia/Shanghai" > /etc/timezone
 RUN apk add -U --no-cache ca-certificates
 
 
 
-FROM alpine:3.13
+FROM alpine:3.14
 EXPOSE 80 443
 VOLUME /data
 
