@@ -22,7 +22,6 @@ description: 开源持续集成工具
 ```bash
 #创建数据保存目录
 mkdir ${NFS}/drone
-
 ```
 
 编译企业版\(可解除5000次限制\)
