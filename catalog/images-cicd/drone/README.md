@@ -58,7 +58,7 @@ WORKDIR /src/drone-${DRONE_VERSION}
 ENV CGO_CFLAGS="-g -O2 -Wno-return-local-addr"
 
 RUN go env -w GO111MODULE=on && \
-    go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct && \
+    go env -w GOPROXY=https://goproxy.cn/,direct && \
     go mod download
 
 RUN go build -ldflags "-extldflags \"-static\"" -tags="nolimit" github.com/drone/drone/cmd/drone-server
