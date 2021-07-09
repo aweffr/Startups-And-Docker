@@ -90,7 +90,7 @@ ENV DRONE_DATADOG_ENABLED=true
 ENV DRONE_DATADOG_ENDPOINT=https://stats.drone.ci/api/v1/series
 
 COPY --from=Certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=Builder /src/drone-master/drone-server /bin/drone-server
+COPY --from=Builder /src/drone-2.0.4/drone-server /bin/drone-server
 ENTRYPOINT ["/bin/drone-server"]
 ```
 
