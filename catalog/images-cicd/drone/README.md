@@ -28,7 +28,7 @@ mkdir ${NFS}/drone
 编译企业版\(可解除5000次限制\)
 
 ```bash
-#docker build --rm -f docker/Dockerfile -t drone/drone .
+#docker build --rm -f docker/Dockerfile -t drone .
  
 FROM golang:1.16.0-alpine3.13 AS Builder
 
