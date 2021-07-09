@@ -39,15 +39,17 @@ RUN apk add build-base && \
     go env -w GO111MODULE=on && \
     go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct
 
-ENV DRONE_VERSION 2.0.0
+ENV DRONE_VERSION 2.0.4
 
 WORKDIR /src
 
 # Build with online code
-RUN apk add curl && curl -L https://github.com/drone/drone/archive/refs/tags/v${DRONE_VERSION}.tar.gz -o v${DRONE_VERSION}.tar.gz && \
-    tar zxvf v${DRONE_VERSION}.tar.gz && rm v${DRONE_VERSION}.tar.gz
+RUN apk add curl && \
+    curl -L https://github.com/drone/drone/archive/refs/tags/v${DRONE_VERSION}.tar.gz -o v${DRONE_VERSION}.tar.gz && \
+    tar zxvf v${DRONE_VERSION}.tar.gz && \
+    rm v${DRONE_VERSION}.tar.gz
 # OR with offline tarball
-# ADD drone-1.10.1.tar.gz /src/
+# ADD drone-2.0.4.tar.gz /src/
 
 WORKDIR /src/drone-${DRONE_VERSION}
 
