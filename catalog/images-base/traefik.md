@@ -47,7 +47,7 @@ mkdir -p ${NFS}/traefik/config
 [tracing]
   [tracing.jaeger]
      [tracing.jaeger.collector]
-        endpoint = "http://tempo:14268/api/traces?format=jaeger.thrift"
+        endpoint = "http://tempo:3100/api/traces"
 
 [serversTransport]
 	insecureSkipVerify = true
@@ -149,45 +149,6 @@ docker service create --replicas 1 \
 --mount type=bind,source=${NFS}/traefik/config,target=/etc/traefik/config,readonly \
 traefik
 ```
-{% endtab %}
-
-{% tab title="Compose" %}
-{% code title="traefik.yaml" %}
-```yaml
-version: "3"
-secrets: 
-  ali_access: 
-    external: true
-  ali_secret: 
-    external: true
-    
-services: 
-  traefik: 
-    image: traefik
-    container_name: traefik
-    networks: staging
-    expose:
-      - 80
-      - 443
-      - 8080
-    secrets: 
-      - ali_access
-      - ali_secret
-    environment: 
-      TZ: Asia/Shanghai
-      ALICLOUD_ACCESS_KEY_FILE: /run/secrets/ali_access
-      ALICLOUD_SECRET_KEY_FILE: /run/secrets/ali_secret
-    volumes: 
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ${NFS}/traefik:/etc/traefik
-      - ${NFS}/traefik/config: /etc/traefik/config,z
-    logging: 
-      driver: loki
-      options: 
-        -loki-url: "http://loki:3100/api/prom/push
-    restart: unless-stopped
-```
-{% endcode %}
 {% endtab %}
 {% endtabs %}
 

@@ -67,44 +67,6 @@ minio/minio server /data
 --label traefik.http.routers.minio-sec.entrypoints=https \
 ```
 {% endtab %}
-
-{% tab title="Compose" %}
-{% code title="minio.yaml" %}
-```yaml
-version: "3
-services:
-  minio:
-    image: minio/minio
-    container_name: minio
-    networks: staging
-    volumes:
-      - ${NFS}/minio/data:/data
-      - ${NFS}/minio/conf:/root/.minio
-    environment:
-      TZ: Asia/Shanghai
-      MINIO_REGION_NAME: "Area1" \
-      MINIO_BROWSER: "on" \
-      MINIO_ROOT_USER: "minioadmin" \
-      MINIO_ROOT_PASSWORD: "wJalrXUtnFEMI/K7MD8NG/bPxRfiBY7XAMPLEKEY" \
-    labels: 
-      - traefik.enable=true \
-      - traefik.docker.network=staging \
-      - traefik.http.services.minio.loadbalancer.server.port=9000 \
-      - traefik.http.routers.minio.rule="Host(\`minio.${DOMAIN}\`)" \
-      - traefik.http.routers.minio.entrypoints=http \
-      - traefik.http.routers.minio-sec.tls=true \
-      - traefik.http.routers.minio-sec.tls.certresolver=dnsResolver \
-      - traefik.http.routers.minio-sec.rule="Host(\`minio.${DOMAIN}\`)" \
-      - traefik.http.routers.minio-sec.entrypoints=https \
-    logging: 
-      driver: loki
-      options: 
-        -loki-url: "http://loki:3100/api/prom/push
-    restart: unless-stopped
-    command: "minio server /data"
-```
-{% endcode %}
-{% endtab %}
 {% endtabs %}
 
 
