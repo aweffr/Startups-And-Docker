@@ -18,12 +18,15 @@ description: Gitbook开源替代品
 
 ## 前置准备
 
+* 运行[postgers](../images-develop/database/postgres/)
+* 运行[redis](../images-develop/cache/redis.md)
+* 运行[minio](minio.md)
+* 在minio中创建一个名为"outline"的桶
+* 生成管理密钥
+
 ```bash
-#生成管理密钥
 if [ "$OUTLINE_KEY" = "" ]; then OUTLINE_KEY=`cat /dev/urandom | tr -dc a-f0-9 | head -c 64`; echo "OUTLINE_KEY=$OUTLINE_KEY" >> ~/.bashrc; echo $OUTLINE_KEY; else echo $OUTLINE_KEY; fi
 if [ "$OUTLINE_SECRET" = "" ]; then OUTLINE_SECRET=`cat /dev/urandom | tr -dc a-f0-9 | head -c 64`; echo "OUTLINE_SECRET=$OUTLINE_SECRET" >> ~/.bashrc; echo $OUTLINE_SECRET; else echo $OUTLINE_SECRET; fi
-
-#在minio中创建一个名为"outline"的桶
 ```
 
 ## 启动命令
