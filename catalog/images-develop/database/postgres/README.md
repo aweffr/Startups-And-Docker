@@ -57,6 +57,37 @@ docker service create --replicas 1 \
 postgres:alpine
 ```
 {% endtab %}
+
+{% tab title="Compose" %}
+```
+version: "3"
+networks:
+  staging
+  
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    secrets:
+      - POSTGRES_PWD
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD_FILE: /run/secrets/POSTGRES_PWD
+    tmpfs: /dev/shm,tmpfs-size=268435456
+    volumes: 
+      - ${NFS}/postgres:/var/lib/postgresql/data
+    labels:
+      - traefik.enable: false
+    logging:
+      driver: loki
+      options: 
+        -loki-url: "http://loki:3100/api/prom/push
+    restart: unless-stopped
+secrets:
+  POSTGRES_PWD:
+    external: true
+```
+{% endtab %}
 {% endtabs %}
 
 > Alpine版镜像更小，但不支持GIS
