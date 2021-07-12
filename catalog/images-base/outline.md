@@ -61,15 +61,15 @@ services:
       - AWS_S3_UPLOAD_BUCKET_URL: http://minio:9000
       - AWS_S3_UPLOAD_BUCKET_NAME: outline
     labels: 
-      - traefik.enable=true \
-      - traefik.docker.network=staging \
-      - traefik.http.services.outline.loadbalancer.server.port=3000 \
-      - traefik.http.routers.outline.rule="Host(\`outline.${DOMAIN}\`)" \
-      - traefik.http.routers.outline.entrypoints=http \
-      - traefik.http.routers.outline-sec.tls=true \
-      - traefik.http.routers.outline-sec.tls.certresolver=dnsResolver \
-      - traefik.http.routers.outline-sec.rule="Host(\`outline.${DOMAIN}\`)" \
-      - traefik.http.routers.outline-sec.entrypoints=https \
+      - traefik.enable: true
+      - traefik.docker.network: staging
+      - traefik.http.services.outline.loadbalancer.server.port: 3000
+      - traefik.http.routers.outline.rule: "Host(\`outline.${DOMAIN}\`)"
+      - traefik.http.routers.outline.entrypoints: http
+      - traefik.http.routers.outline-sec.tls: true
+      - traefik.http.routers.outline-sec.tls.certresolver: dnsResolver
+      - traefik.http.routers.outline-sec.rule: "Host(\`outline.${DOMAIN}\`)"
+      - traefik.http.routers.outline-sec.entrypoints: https
     restart: unless-stopped
     logging: 
       driver: loki
