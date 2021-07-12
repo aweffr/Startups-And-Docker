@@ -17,6 +17,7 @@ description: 数据库脚本管理
 | Flarum | 开源论坛 |  |  |
 | [Synapse](images-base/synapse/) | 聊天室服务器 | 87M |  |
 | [Dokuwiki](images-base/dokuwiki.md) | Wiki |  | - |
+| [Outline](images-base/outline.md) | Gitbook开源替代品 |  |  |
 | [Ocserv](images-base/ocserv.md) | OpenConnect VPN服务端 |  | 兼容Cisco Anyconnect |
 | [Bitwarden](images-base/bitwarden.md) | 开源的密码管理服务 |  | 供客户端程序使用 |
 | PhotoPrism | 照片分享平台 |  |  |

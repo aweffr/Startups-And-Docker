@@ -12,16 +12,18 @@ description: Gitbook开源替代品
 
 | 端口 | 用途 |
 | :--- | :--- |
-| 53 | DNS |
-| 8080 | 管理页面 |
+| 3000 | 网页入口 |
 
 
 
 ## 前置准备
 
 ```bash
-#创建数据保存目录
-mkdir ${NFS}/doku
+#生成管理密钥
+if [ "$OUTLINE_KEY" = "" ]; then OUTLINE_KEY=`cat /dev/urandom | tr -dc a-f0-9 | head -c 64`; echo "OUTLINE_KEY=$OUTLINE_KEY" >> ~/.bashrc; echo $OUTLINE_KEY; else echo $OUTLINE_KEY; fi
+if [ "$OUTLINE_SECRET" = "" ]; then OUTLINE_SECRET=`cat /dev/urandom | tr -dc a-f0-9 | head -c 64`; echo "OUTLINE_SECRET=$OUTLINE_SECRET" >> ~/.bashrc; echo $OUTLINE_SECRET; else echo $OUTLINE_SECRET; fi
+
+#在minio中创建一个名为"outline"的桶
 ```
 
 ## 启动命令
@@ -40,7 +42,7 @@ mkdir ${NFS}/doku
 ```yaml
 version: "3"
 services:
-    outline:
+  outline:
     image: outlinewiki/outline
     container_name: outline
     networks: staging
@@ -52,12 +54,27 @@ services:
       - FORCE_HTTPS: false
       - DEFAULT_LANGUAGE: zh_CN
       #- TEAM_LOGO: https://example.com/images/logo.png
-      - SECRET_KEY: generate_a_new_key
-      - UTILS_SECRET: generate_a_new_key
-    env_file:
-      - ./env.outline
-      - ./env.slack
-    restart: always
+      - SECRET_KEY: $OUTLINE_KEY
+      - UTILS_SECRET: $OUTLINE_SECRET
+      - AWS_ACCESS_KEY_ID: MINIO_ROOT_USER
+      - AWS_SECRET_ACCESS_KEY: MINIO_ROOT_PASSWORD
+      - AWS_S3_UPLOAD_BUCKET_URL: http://minio:9000
+      - AWS_S3_UPLOAD_BUCKET_NAME: outline
+    labels: 
+      - traefik.enable=true \
+      - traefik.docker.network=staging \
+      - traefik.http.services.outline.loadbalancer.server.port=3000 \
+      - traefik.http.routers.outline.rule="Host(\`outline.${DOMAIN}\`)" \
+      - traefik.http.routers.outline.entrypoints=http \
+      - traefik.http.routers.outline-sec.tls=true \
+      - traefik.http.routers.outline-sec.tls.certresolver=dnsResolver \
+      - traefik.http.routers.outline-sec.rule="Host(\`outline.${DOMAIN}\`)" \
+      - traefik.http.routers.outline-sec.entrypoints=https \
+    restart: unless-stopped
+    logging: 
+      driver: loki
+      options: 
+        -loki-url: "http://loki:3100/api/prom/push
     depends_on:
       - postgres
       - redis
