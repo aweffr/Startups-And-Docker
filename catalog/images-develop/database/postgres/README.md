@@ -62,16 +62,16 @@ postgres:alpine
 {% code title="postgres.yaml" %}
 ```yaml
 version: "3"
-networks:
-  staging
-  
+
 services:
   postgres:
     image: postgres:alpine
     container_name: postgres
+    networks: staging
     secrets: 
       - POSTGRES_PWD
     environment: 
+      TZ: Asia/Shanghai
       POSTGRES_USER: admin
       POSTGRES_PASSWORD_FILE: /run/secrets/POSTGRES_PWD
     tmpfs: /dev/shm,tmpfs-size=268435456
@@ -84,6 +84,7 @@ services:
       options: 
         -loki-url: "http://loki:3100/api/prom/push
     restart: unless-stopped
+    
 secrets: 
   POSTGRES_PWD:
     external: true
