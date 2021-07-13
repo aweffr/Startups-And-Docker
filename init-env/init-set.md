@@ -4,7 +4,7 @@ description: 未完待续
 
 # 初始套装
 
-
+未完待续，本页内容尚未可用!
 
 
 
@@ -12,8 +12,17 @@ description: 未完待续
 
 ```bash
 #创建数据保存目录
-mkdir -p ${NFS}/initset/conf
-mkdir -p ${NFS}/initset/data
+mkdir -p ${NFS}/initSet/conf
+mkdir -p ${NFS}/initSet/data
+
+mkdir -p ${NFS}/prometheus/conf
+mkdir ${NFS}/prometheus/data
+chown nobody:nogroup $USER:$USER ${NFS}/prometheus/data
+touch ${NFS}/prometheus/conf/targets.json
+
+mkdir -p ${NFS}/minio/data
+mkdir ${NFS}/minio/conf
+
 mkdir /tmp/tempo
 chmod 777 /tmp/tempo
 
@@ -21,50 +30,52 @@ chmod 777 /tmp/tempo
 wget -O ${NFS}/initset/conf/tempo-local.yaml https://raw.githubusercontent.com/grafana/tempo/main/example/docker-compose/local/tempo-local.yaml
 ```
 
-## docker-compose.yaml
+## 
 
+{% code title="docker-compose.yaml" %}
 ```yaml
 version: "3"
+secrets: 
+  POSTGRES_PWD:
+    external: true
+  ali_access: 
+    external: true
+  ali_secret: 
+    external: true
+    
 services:
-
   tempo:
     image: grafana/tempo:latest
     container_name: "tempo"
     command: [ "-config.file=/etc/tempo.yaml" ]
     volumes:
-      - ${NFS}/initset/conf/tempo-local.yaml:/etc/tempo.yaml
+      - ${NFS}/initSet/conf/tempo-local.yaml:/etc/tempo.yaml
       - /tmp/tempo:/tmp/tempo
-    ports:
-      - "14268"  # jaeger ingest
-      - "3100"   # tempo
-      - "55680"  # otlp grpc
-      - "55681"  # otlp http
-      - "9411"   # zipkin
 
-  synthetic-load-generator:
-    image: omnition/synthetic-load-generator:1.0.25
-    volumes:
-      - ${NFS}/initset/conf/load-generator.json:/etc/load-generator.json
-    environment:
-      - TOPOLOGY_FILE=/etc/load-generator.json
-      - JAEGER_COLLECTOR_URL=http://tempo:14268
-    depends_on:
-      - tempo
+
+#  synthetic-load-generator:
+#    image: omnition/synthetic-load-generator:1.0.25
+#    volumes:
+#      - ${NFS}/initSet/conf/load-generator.json:/etc/load-generator.json
+#    environment:
+#      - TOPOLOGY_FILE=/etc/load-generator.json
+#      - JAEGER_COLLECTOR_URL=http://tempo:14268
+#    depends_on:
+#      - tempo
+
 
   prometheus:
     image: prom/prometheus:latest
     container_name: "prometheus"
-    command: [ "--config.file=/etc/prometheus.yaml" ]
     volumes:
-      - ${NFS}/initset/conf/prometheus.yaml:/etc/prometheus.yaml
-    ports:
-      - "9090:9090"
+      - ${NFS}/prometheus/conf:/etc/prometheus \
+      - ${NFS}/prometheus/data:/prometheus/data \
 
   grafana:
     image: grafana/grafana:latest
     container_name: "grafana"
     volumes:
-      - ${NFS}/initset/conf/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ${NFS}/initSet/conf/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
       - ${NFS}/grafana:/var/lib/grafana
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
@@ -81,8 +92,6 @@ services:
       - "traefik.http.routers.grafana-sec.tls.certresolver=dnsResolver"
       - "traefik.http.routers.grafana-sec.rule=Host(\`grafana.${DOMAIN}\`)"
       - "traefik.http.routers.grafana-sec.entrypoints=https"
-    ports:
-      - "3000:3000"
       
   traefik:
     image: traefik
@@ -114,5 +123,57 @@ services:
       - "443:443"
       - "8080:8080"
       - "8022:8022"
+      
+  minio:
+    image: minio/minio
+    container_name: minio
+    networks: staging
+    volumes:
+      - ${NFS}/minio/data:/data
+      - ${NFS}/minio/conf:/root/.minio
+    environment:
+      TZ: Asia/Shanghai
+      MINIO_REGION_NAME: "Area1" \
+      MINIO_BROWSER: "on" \
+      MINIO_ROOT_USER: "minioadmin" \
+      MINIO_ROOT_PASSWORD: "wJalrXUtnFEMI/K7MD8NG/bPxRfiBY7XAMPLEKEY" \
+    labels: 
+      - traefik.enable=true \
+      - traefik.docker.network=staging \
+      - traefik.http.services.minio.loadbalancer.server.port=9000 \
+      - traefik.http.routers.minio.rule="Host(\`minio.${DOMAIN}\`)" \
+      - traefik.http.routers.minio.entrypoints=http \
+      - traefik.http.routers.minio-sec.tls=true \
+      - traefik.http.routers.minio-sec.tls.certresolver=dnsResolver \
+      - traefik.http.routers.minio-sec.rule="Host(\`minio.${DOMAIN}\`)" \
+      - traefik.http.routers.minio-sec.entrypoints=https \
+    logging: 
+      driver: loki
+      options: 
+        -loki-url: "http://loki:3100/api/prom/push
+    restart: unless-stopped
+    command: "minio server /data"
+  
+  postgres:
+    image: postgres:alpine
+    container_name: postgres
+    networks: staging
+    secrets: 
+      - POSTGRES_PWD
+    environment: 
+      TZ: Asia/Shanghai
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD_FILE: /run/secrets/POSTGRES_PWD
+    tmpfs: /dev/shm,tmpfs-size=268435456
+    volumes: 
+      - ${NFS}/postgres:/var/lib/postgresql/data
+    labels: 
+      - traefik.enable: false
+    logging: 
+      driver: loki
+      options: 
+        -loki-url: "http://loki:3100/api/prom/push
+    restart: unless-stopped
 ```
+{% endcode %}
 
