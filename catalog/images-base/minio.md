@@ -12,7 +12,8 @@ description: 兼容S3的对象存储服务
 
 | 端口 | 用途 |
 | :--- | :--- |
-| 9000 | 管理页面+API接口 |
+| 9000 | API接口 |
+| 42311 | 管理页面 |
 
 
 
@@ -21,7 +22,8 @@ description: 兼容S3的对象存储服务
 ```bash
 #创建数据保存目录
 mkdir -p ${NFS}/minio/data
-mkdir -p ${NFS}/minio/conf
+mkdir ${NFS}/minio/conf
+chmod 777 ${NFS}/minio/data
 ```
 
 ## 启动命令
@@ -37,6 +39,7 @@ docker run -d \
 -v ${NFS}/minio/data:/data \
 -v ${NFS}/minio/conf:/root/.minio \
 -p 9000:9000 \
+-p 42311:42311 \
 minio/minio server /data
 ```
 {% endtab %}
@@ -53,7 +56,7 @@ docker service create --replicas 1 \
 -e "MINIO_ROOT_PASSWORD=wJalrXUtnFEMI/K7MD8NG/bPxRfiBY7XAMPLEKEY" \
 --mount type=bind,src=${NFS}/minio/data,dst=/data \
 --mount type=bind,src=${NFS}/minio/conf,dst=/root/.minio \
-minio/minio server /data
+minio/minio server /data --console-address ":42311"
 
 #traefik参数
 --label traefik.enable=true \
