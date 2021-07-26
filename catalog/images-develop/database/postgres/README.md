@@ -16,7 +16,7 @@
 
 ```bash
 #创建数据保存目录
-mkdir ${NFS}/postgrea
+mkdir ${NFS}/postgre
 
 #将密码保存进Docker Secret
 echo 'Test123666' | docker secret create POSTGRES_PWD -
@@ -56,6 +56,40 @@ docker service create --replicas 1 \
 --label traefik.enable=false \
 postgres:alpine
 ```
+{% endtab %}
+
+{% tab title="Compose" %}
+{% code title="postgres.yaml" %}
+```yaml
+version: "3"
+
+services:
+  postgres:
+    image: postgres:alpine
+    container_name: postgres
+    networks: staging
+    secrets: 
+      - POSTGRES_PWD
+    environment: 
+      TZ: Asia/Shanghai
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD_FILE: /run/secrets/POSTGRES_PWD
+    tmpfs: /dev/shm,tmpfs-size=268435456
+    volumes: 
+      - ${NFS}/postgres:/var/lib/postgresql/data
+    labels: 
+      - traefik.enable: false
+    logging: 
+      driver: loki
+      options: 
+        -loki-url: "http://loki:3100/api/prom/push
+    restart: unless-stopped
+    
+secrets: 
+  POSTGRES_PWD:
+    external: true
+```
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 

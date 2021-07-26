@@ -6,7 +6,7 @@ description: 开源持续集成工具
 
 ## 简介
 
-
+![](../../../.gitbook/assets/screenshot_build_success.png)
 
 ## EXPOSE
 
@@ -22,32 +22,30 @@ description: 开源持续集成工具
 ```bash
 #创建数据保存目录
 mkdir ${NFS}/drone
-
 ```
 
 编译企业版\(可解除5000次限制\)
 
 ```bash
-#docker build --rm -f docker/Dockerfile -t drone/drone .
+#docker build --rm -f docker/Dockerfile -t drone .
  
-FROM golang:1.16.0-alpine3.13 AS Builder
+FROM golang:1.16.5-alpine3.14 AS Builder
 
 RUN sed -i 's/https:\/\/dl-cdn.alpinelinux.org/http:\/\/mirrors.tuna.tsinghua.edu.cn/' /etc/apk/repositories && \
-    echo "Asia/Shanghai" > /etc/timezone
+    echo "Asia/Shanghai" > /etc/timezone && \
+    apk add build-base
 
-RUN apk add build-base && \
-    go env -w GO111MODULE=on && \
-    go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct
-
-ENV DRONE_VERSION 2.0.0
+ENV DRONE_VERSION 2.0.4
 
 WORKDIR /src
 
 # Build with online code
-RUN apk add curl && curl -L https://github.com/drone/drone/archive/refs/tags/v${DRONE_VERSION}.tar.gz -o v${DRONE_VERSION}.tar.gz && \
-    tar zxvf v${DRONE_VERSION}.tar.gz && rm v${DRONE_VERSION}.tar.gz
+RUN apk add curl && \
+    curl -L https://download.fastgit.org/drone/drone/archive/refs/tags/v${DRONE_VERSION}.tar.gz -o v${DRONE_VERSION}.tar.gz && \
+    tar zxvf v${DRONE_VERSION}.tar.gz && \
+    rm v${DRONE_VERSION}.tar.gz
 # OR with offline tarball
-# ADD drone-1.10.1.tar.gz /src/
+# ADD drone-2.0.4.tar.gz /src/
 
 WORKDIR /src/drone-${DRONE_VERSION}
 
@@ -56,22 +54,24 @@ WORKDIR /src/drone-${DRONE_VERSION}
 #    unzip master.tar.gz && rm master.tar.gz
 #WORKDIR /src/drone-master
 
-RUN go mod download
-
 ENV CGO_CFLAGS="-g -O2 -Wno-return-local-addr"
+
+RUN go env -w GO111MODULE=on && \
+    go env -w GOPROXY=https://goproxy.cn/,direct && \
+    go mod download
 
 RUN go build -ldflags "-extldflags \"-static\"" -tags="nolimit" github.com/drone/drone/cmd/drone-server
 
 
 
-FROM alpine:3.13 AS Certs
+FROM alpine:3.14 AS Certs
 RUN sed -i 's/https:\/\/dl-cdn.alpinelinux.org/http:\/\/mirrors.tuna.tsinghua.edu.cn/' /etc/apk/repositories && \
     echo "Asia/Shanghai" > /etc/timezone
 RUN apk add -U --no-cache ca-certificates
 
 
 
-FROM alpine:3.13
+FROM alpine:3.14
 EXPOSE 80 443
 VOLUME /data
 
@@ -89,7 +89,7 @@ ENV DRONE_DATADOG_ENABLED=true
 ENV DRONE_DATADOG_ENDPOINT=https://stats.drone.ci/api/v1/series
 
 COPY --from=Certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=Builder /src/drone-master/drone-server /bin/drone-server
+COPY --from=Builder /src/drone-2.0.4/drone-server /bin/drone-server
 ENTRYPOINT ["/bin/drone-server"]
 ```
 

@@ -24,8 +24,6 @@ Tempo配置相对比较复杂，你可以通过\[[官方范例](https://github.c
 | 14250 | Jaeger - GRPC |
 | 9411 | Zipkin |
 
-`除3100端口外，其它端口必需用-p参数注明才能正确接收trace数据!`
-
 ## 前置准备
 
 ```bash
@@ -54,6 +52,8 @@ docker service create --replicas 1 \
 -p 16686:16686 \
 --mount type=bind,src=${NFS}/tempo/tempo-local.yaml,dst=/etc/tempo.yaml \
 --mount type=bind,src=/tmp/tempo,dst=/tmp/tempo \
+--log-driver=loki \
+--log-opt loki-url="http://loki:3100/api/prom/push" \
 --label traefik.enable=false \
 grafana/tempo \
 --config.file='/etc/tempo.yaml'

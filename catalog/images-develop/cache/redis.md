@@ -42,6 +42,8 @@ docker service create --replicas 1 \
 --name redis \
 --network staging \
 -e TZ=Asia/Shanghai \
+-p 6379:6379 \
+--label traefik.enable=false \
 redis:alpine --requirepass Ttt123456
 ```
 {% endtab %}

@@ -52,6 +52,7 @@
     * [Grafana](catalog/images-ops/grafana/README.md)
       * [Prometheus](catalog/images-ops/grafana/prometheus/README.md)
         * [Alertmanager](catalog/images-ops/grafana/prometheus/alertmanager.md)
+      * [cAdvisor](catalog/images-ops/grafana/cadvisor.md)
       * [Grafana/Loki](catalog/images-ops/grafana/grafana-loki/README.md)
         * [Promtail](catalog/images-ops/grafana/grafana-loki/grafana-promtail.md)
       * [Grafana/Tempo](catalog/images-ops/grafana/grafana-tempo.md)
