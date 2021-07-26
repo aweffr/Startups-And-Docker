@@ -40,7 +40,7 @@ docker run -d \
 -v ${NFS}/minio/conf:/root/.minio \
 -p 9000:9000 \
 -p 42311:42311 \
-minio/minio server /data
+minio/minio server /data --console-address ":42311"
 ```
 {% endtab %}
 
@@ -104,7 +104,7 @@ services:
       options: 
         -loki-url: "http://loki:3100/api/prom/push
     restart: unless-stopped
-    command: "minio server /data"
+    command: "minio server /data  --console-address \":42311\""
 ```
 {% endcode %}
 {% endtab %}
