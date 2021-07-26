@@ -6,7 +6,7 @@ description: 兼容S3的对象存储服务
 
 ## 简介
 
-
+![](../../.gitbook/assets/minio-console-dashboard1.png)
 
 ## EXPOSE
 

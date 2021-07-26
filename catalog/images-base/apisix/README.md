@@ -6,7 +6,7 @@ description: 开源API网关
 
 ## 简介
 
-
+![Apisix Dashboard](../../../.gitbook/assets/112923280-a0a94080-912b-11eb-8b83-3960778ecf8a.png)
 
 ## EXPOSE
 
