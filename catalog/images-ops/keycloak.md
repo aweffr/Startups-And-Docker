@@ -6,7 +6,7 @@ description: 身份和访问管理解决方案
 
 ## 简介
 
-
+![](../../.gitbook/assets/admin-console.png)
 
 ## EXPOSE
 

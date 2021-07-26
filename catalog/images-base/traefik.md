@@ -6,7 +6,7 @@ description: 开源云原生网关
 
 ## 简介
 
-
+![](../../.gitbook/assets/traefik-screenshot.webp)
 
 ## EXPOSE
 
